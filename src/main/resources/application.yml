@@ -1,0 +1,17 @@
+# 数据库连接
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/network?serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    password: nskeylab2020
+#    sql文件
+#    schema: sql/network.sql
+
+# mybatis配置文件
+mybatis:
+  config-location: classpath:mybatis-config.xml
+
+server:
+  port: 8081
+

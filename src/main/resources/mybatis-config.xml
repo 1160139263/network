@@ -1,0 +1,25 @@
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <package name="cn.blatter.network"/>
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="mybatis/mappers/ProjectsMapper.xml"/>
+        <mapper resource="mybatis/mappers/TypeMapper.xml"/>
+        <mapper resource="mybatis/mappers/UserMapper.xml"/>
+        <mapper resource="mybatis/mappers/ComponentMapper.xml"/>
+        <mapper resource="mybatis/mappers/NodeMapper.xml"/>
+        <mapper resource="mybatis/mappers/PipeMapper.xml"/>
+        <mapper resource="mybatis/mappers/NodeMapper.xml"/>
+        <mapper resource="mybatis/mappers/MenuMapper.xml"/>
+    </mappers>
+
+</configuration>

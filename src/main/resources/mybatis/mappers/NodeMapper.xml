@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blatter.network.mapper.NodeMapper">
+  <select id="findAll" resultType="Node">
+    select id, project_id, pressure, pressure_state, loads, load_state, elevation, name, x, y
+    from t_node
+  </select>
+
+  <select id="queryById" parameterType="integer" resultType="Node">
+    select id, project_id, pressure, loads, pressure_state, load_state, elevation, name, x, y
+    from t_node
+    where id = #{id}
+  </select>
+
+  <select id="queryByProject" parameterType="integer" resultType="Node">
+    select id, project_id, pressure, loads, pressure_state, load_state, elevation, name, x, y
+    from t_node
+    where project_id = #{id}
+  </select>
+
+  <delete id="deleteById" parameterType="integer">
+    delete
+    from t_node
+    where id = #{id}
+  </delete>
+
+  <insert id="insertNode" parameterType="Node" useGeneratedKeys="true" keyProperty="id">
+    insert into t_node
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="x != null">
+        x,
+      </if>
+      <if test="y != null">
+        y,
+      </if>
+      <if test="pressure != null">
+        pressure,
+      </if>
+      <if test="loads != null">
+        loads,
+      </if>
+      <if test="pressureState != null">
+        pressure_state,
+      </if>
+      <if test="loadState != null">
+        load_state,
+      </if>
+      <if test="elevation != null">
+        elevation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="pressure != null">
+        #{pressure},
+      </if>
+      <if test="y != null">
+        #{y},
+      </if>
+      <if test="x != null">
+        #{x},
+      </if>
+      <if test="loads != null">
+        #{loads},
+      </if>
+      <if test="pressureState != null">
+        #{pressureState},
+      </if>
+      <if test="loadState != null">
+        #{loadState},
+      </if>
+      <if test="elevation != null">
+        #{elevation},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateById" parameterType="Node">
+    update t_node
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="x != null">
+        x = #{x},
+      </if>
+      <if test="y != null">
+        y = #{y},
+      </if>
+      <if test="pressure != null">
+        pressure = #{pressure},
+      </if>
+      <if test="loads != null">
+        loads = #{loads},
+      </if>
+      <if test="pressureState != null">
+        pressure_state = #{pressureState},
+      </if>
+      <if test="loadState != null">
+        load_state = #{loadState},
+      </if>
+      <if test="elevation != null">
+        elevation = #{elevation},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <select id="pageQuery" parameterType="integer" resultType="Node">
+    select id, project_id, pressure, loads, pressure_state, load_state, elevation, name, x, y
+    from t_node
+    where project_id = #{pid}
+    limit #{pageStart}, #{pageSize}
+  </select>
+</mapper>

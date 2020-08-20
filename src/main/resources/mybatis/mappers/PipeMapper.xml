@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blatter.network.mapper.PipeMapper">
+  <select id="findAll" resultType="Pipe">
+    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name
+    from t_pipe
+  </select>
+
+  <select id="queryById" parameterType="integer" resultType="Pipe">
+    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name
+    from t_pipe
+    where id = #{id}
+  </select>
+
+  <select id="queryByProject" parameterType="integer" resultType="Pipe">
+    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name
+    from t_pipe
+    where project_id = #{id}
+  </select>
+
+  <update id="updateById" parameterType="Pipe">
+    update t_pipe
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="startName != null">
+        start_name = #{startName},
+      </if>
+      <if test="endName != null">
+        end_name = #{endName},
+      </if>
+      <if test="startId != null">
+        start_id = #{startId},
+      </if>
+      <if test="endId != null">
+        end_id = #{endId},
+      </if>
+      <if test="diameter != null">
+        diameter = #{diameter},
+      </if>
+      <if test="length != null">
+        length = #{length},
+      </if>
+      <if test="roughness != null">
+        roughness = #{roughness},
+      </if>
+      <if test="lambda != null">
+        lambda = #{lambda},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <insert id="insertPipe" parameterType="Pipe" useGeneratedKeys="true" keyProperty="id">
+    insert into t_pipe
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="startName != null">
+        start_name,
+      </if>
+      <if test="endName != null">
+        end_name,
+      </if>
+      <if test="startId != null">
+        start_id,
+      </if>
+      <if test="endId != null">
+        end_id,
+      </if>
+      <if test="diameter != null">
+        diameter,
+      </if>
+      <if test="length != null">
+        length,
+      </if>
+      <if test="roughness != null">
+        roughness,
+      </if>
+      <if test="lambda != null">
+        lambda,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="startName != null">
+        #{startName},
+      </if>
+      <if test="startId != null">
+        #{startId},
+      </if>
+      <if test="endName != null">
+        #{endName},
+      </if>
+      <if test="endId != null">
+        #{endId},
+      </if>
+      <if test="diameter != null">
+        #{diameter},
+      </if>
+      <if test="length != null">
+        #{length},
+      </if>
+      <if test="roughness != null">
+        #{roughness},
+      </if>
+      <if test="lambda != null">
+        #{lambda},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteById" parameterType="integer">
+    delete
+    from t_pipe
+    where id = #{id}
+  </delete>
+
+  <select id="pageQuery" parameterType="integer" resultType="Pipe">
+    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name
+    from t_pipe
+    where project_id = #{pid}
+    limit #{pageStart}, #{pageSize}
+  </select>
+
+</mapper>

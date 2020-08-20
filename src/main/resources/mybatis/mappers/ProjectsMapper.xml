@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.blatter.network.mapper.ProjectsMapper">
+
+  <select id="findAll" resultType="Projects">
+    select pid, info, author, create_time, update_time, type, com_id
+    from t_projects
+  </select>
+
+  <update id="updateById" parameterType="Projects">
+    update t_projects
+    <set>
+      <if test="comId != null">
+        com_id = #{comId},
+      </if>
+      <if test="info != null">
+        info = #{info},
+      </if>
+      <if test="type != null">
+        type = #{type},
+      </if>
+      <if test="author != null">
+        author = #{author},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where pid = #{pid}
+  </update>
+
+  <delete id="deleteById">
+    delete
+    from t_projects
+    where pid = #{pid}
+  </delete>
+
+  <insert id="insertProjects" parameterType="Projects" useGeneratedKeys="true" keyProperty="pid">
+    insert into t_projects
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="comId != null">
+        com_id,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      create_time,
+      update_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="comId != null">
+        #{comId},
+      </if>
+      <if test="info != null">
+        #{info},
+      </if>
+      <if test="author != null">
+        #{author},
+      </if>
+      <if test="type != null">
+        #{type},
+      </if>
+      now(),
+      now()
+    </trim>
+  </insert>
+
+  <select id="queryById" parameterType="integer" resultType="Projects">
+    select pid, info, author, create_time, update_time, type, com_id
+    from t_projects
+    where pid = #{pid}
+  </select>
+
+  <select id="pageQuery" parameterType="integer" resultType="Projects">
+    select pid, info, author, create_time, update_time, type, com_id
+    from t_projects
+    limit #{pageStart}, #{pageSize}
+  </select>
+</mapper>

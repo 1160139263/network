@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blatter.network.mapper.ComponentMapper">
+
+  <select id="queryById" parameterType="integer" resultType="Component">
+    select id, c1, c2, c3, ic4, nc4, ic5, nc5, c6, n2, co2, name
+    from t_component
+    where id = #{id}
+  </select>
+
+  <update id="updateById" parameterType="Component">
+    update t_component
+    <set>
+      <if test="c1 != null">
+        c1 = #{c1},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="c2 != null">
+        c2 = #{c2},
+      </if>
+      <if test="c3 != null">
+        c3 = #{c3},
+      </if>
+      <if test="ic4 != null">
+        ic4 = #{ic4},
+      </if>
+      <if test="nc4 != null">
+        nc4 = #{nc4},
+      </if>
+      <if test="ic5 != null">
+        ic5 = #{ic5},
+      </if>
+      <if test="nc5 != null">
+        nc5 = #{nc5},
+      </if>
+      <if test="c6 != null">
+        c6 = #{c6},
+      </if>
+      <if test="n2 != null">
+        n2 = #{n2},
+      </if>
+      <if test="co2 != null">
+        co2 = #{co2},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <insert id="insertComponent" parameterType="Component" useGeneratedKeys="true" keyProperty="id">
+    insert into t_component
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="c1 != null">
+        c1,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="c2 != null">
+        c2,
+      </if>
+      <if test="c3 != null">
+        c3,
+      </if>
+      <if test="ic4 != null">
+        ic4,
+      </if>
+      <if test="nc4 != null">
+        nc4,
+      </if>
+      <if test="ic5 != null">
+        ic5,
+      </if>
+      <if test="nc5 != null">
+        nc5,
+      </if>
+      <if test="c6 != null">
+        c6,
+      </if>
+      <if test="n2 != null">
+        n2,
+      </if>
+      <if test="co2 != null">
+        co2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="c1 != null">
+        #{c1},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="c2 != null">
+        #{c2},
+      </if>
+      <if test="c3 != null">
+        #{c3},
+      </if>
+      <if test="ic4 != null">
+        #{ic4},
+      </if>
+      <if test="nc4 != null">
+        #{nc4},
+      </if>
+      <if test="ic5 != null">
+        #{ic5},
+      </if>
+      <if test="nc5 != null">
+        #{nc5},
+      </if>
+      <if test="c6 != null">
+        #{c6},
+      </if>
+      <if test="n2 != null">
+        #{n2},
+      </if>
+      <if test="co2 != null">
+        #{co2},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteById" parameterType="integer">
+    delete from t_component
+    where id = #{id}
+  </delete>
+
+  <select id="count" resultType="integer">
+    select count(*)
+    from t_component
+  </select>
+
+  <select id="pageQuery" resultType="Component">
+    select id, c1, c2, c3, ic4, nc4, ic5, nc5, c6, n2, co2, name
+    from t_component
+    limit #{pageStart}, #{pageSize}
+  </select>
+
+  <select id="findAll" resultType="Component">
+    select id, c1, c2, c3, ic4, nc4, ic5, nc5, c6, n2, co2, name
+    from t_component
+  </select>
+</mapper>
