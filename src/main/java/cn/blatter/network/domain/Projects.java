@@ -14,6 +14,8 @@ public class Projects {
 
     private Integer pid;
 
+    private String model;
+
     private String info;
 
     private String author;

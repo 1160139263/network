@@ -19,6 +19,10 @@ public class Pipe {
 	private Integer id;
 	private Integer projectId;
 	private Integer startId;
+	private Integer startConnection;
+	private Integer endConnection;
+	private String startConnectionName;
+	private String endConnectionName;
 	private String startName;
 	private Integer endId;
 	private String endName;
