@@ -23,6 +23,12 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
+    public Attribute findById(Integer element_id){
+        Attribute attributeList = attributeMapper.findById(element_id);
+        return attributeList;
+    }
+
+    @Override
     public void deleteAttribute(Integer element_id) {
         attributeMapper.deleteAttribute(element_id);
     }

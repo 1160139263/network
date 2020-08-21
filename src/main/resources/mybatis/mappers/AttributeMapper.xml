@@ -5,6 +5,9 @@
   <select id="findAll" resultType="Attribute">
     SELECT * FROM t_attribute;
   </select>
+  <select id="findById" resultType="Attribute">
+    SELECT * FROM t_attribute where element_id=#{element_id};
+  </select>
 <!--  <select id="setElement" resultType="Attribute">-->
 <!--    update t_element set name=#{name} where id=#{id};-->
 <!--  </select>-->
