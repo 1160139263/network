@@ -28,6 +28,12 @@ public class ElementController {
         return ServiceResponse.createBySuccess(elementList);
     }
 
+    @RequestMapping(value = "/findElementById", method = RequestMethod.GET)
+    public ServiceResponse findById(@RequestBody Element element) {
+        Element elementList = elementService.findById(element.getId());
+        return ServiceResponse.createBySuccess(elementList);
+    }
+
     @PostMapping(value = "/setElement")
     public ServiceResponse setElement(@RequestBody Element element) {
         elementService.setElement(element.getId(),element.getName());

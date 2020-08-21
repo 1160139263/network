@@ -5,6 +5,9 @@
   <select id="findAll" resultType="Connection">
     SELECT * FROM t_connection;
   </select>
+  <select id="findByEid" resultType="Connection">
+    SELECT * FROM t_connection where element_id=#{element_id};
+  </select>
   <select id="setConnection" resultType="Connection">
     update t_connection set name=#{name},element_id=#{element_id},x=#{x},y=#{y} where id=#{id};
   </select>

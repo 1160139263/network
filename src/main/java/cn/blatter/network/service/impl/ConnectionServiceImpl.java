@@ -23,6 +23,12 @@ public class ConnectionServiceImpl implements ConnectionService {
     }
 
     @Override
+    public List<Connection> findByEid(Integer element_id){
+        List<Connection> connectionList = connectionMapper.findByEid(element_id);
+        return connectionList;
+    }
+
+    @Override
     public void setConnection(Integer id,Integer element_id,Double x,Double y,String name){connectionMapper.setConnection(id,element_id,x,y,name);}
 
     @Override

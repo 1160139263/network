@@ -23,6 +23,12 @@ public class ElementServiceImpl implements ElementService {
     }
 
     @Override
+    public Element findById(Integer id) {
+        Element element = elementMapper.findById(id);
+        return element;
+    }
+
+    @Override
     public void setElement(Integer id,String name) {
         elementMapper.setElement(id,name);
     }
