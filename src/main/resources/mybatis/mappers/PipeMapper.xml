@@ -88,6 +88,18 @@
       <if test="lambda != null">
         lambda,
       </if>
+      <if test="startConnection != null">
+        start_connection,
+      </if>
+      <if test="endConnection != null">
+        end_connection,
+      </if>
+      <if test="startConnectionName != null">
+        start_connection_name,
+      </if>
+      <if test="endConnectionName != null">
+        end_connection_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="projectId != null">
@@ -99,11 +111,11 @@
       <if test="startName != null">
         #{startName},
       </if>
-      <if test="startId != null">
-        #{startId},
-      </if>
       <if test="endName != null">
         #{endName},
+      </if>
+      <if test="startId != null">
+        #{startId},
       </if>
       <if test="endId != null">
         #{endId},
@@ -120,6 +132,18 @@
       <if test="lambda != null">
         #{lambda},
       </if>
+      <if test="startConnection != null">
+        #{startConnection},
+      </if>
+      <if test="endConnection != null">
+        #{endConnection},
+      </if>
+      <if test="startConnectionName != null">
+        #{startConnectionName},
+      </if>
+      <if test="endConnectionName != null">
+        #{endConnectionName},
+      </if>
     </trim>
   </insert>
 
@@ -130,7 +154,8 @@
   </delete>
 
   <select id="pageQuery" parameterType="integer" resultType="Pipe">
-    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name
+    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name,
+           start_name, end_name, start_connection, end_connection, start_connection_name, end_connection_name
     from t_pipe
     where project_id = #{pid}
     limit #{pageStart}, #{pageSize}

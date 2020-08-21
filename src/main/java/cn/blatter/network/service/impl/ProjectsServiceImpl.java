@@ -1,13 +1,9 @@
 package cn.blatter.network.service.impl;
 
-import cn.blatter.network.domain.Component;
-import cn.blatter.network.domain.GasProperty;
-import cn.blatter.network.domain.PageInfo;
-import cn.blatter.network.domain.Projects;
+import cn.blatter.network.domain.*;
 import cn.blatter.network.mapper.ComponentMapper;
 import cn.blatter.network.mapper.ProjectsMapper;
-import cn.blatter.network.service.ComponentService;
-import cn.blatter.network.service.ProjectsService;
+import cn.blatter.network.service.*;
 import cn.blatter.network.utils.XMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +28,18 @@ public class ProjectsServiceImpl implements ProjectsService {
 
 	@Autowired
 	private ComponentService componentService;
+
+	@Autowired
+	private ElementService elementService;
+
+	@Autowired
+	private ConnectionService connectionService;
+
+	@Autowired
+	private NodeService nodeService;
+
+	@Autowired
+	private PipeService pipeService;
 
 	static String path = "src/main/resources";
 
@@ -83,11 +91,24 @@ public class ProjectsServiceImpl implements ProjectsService {
 			projects.setModel(s);
 			System.out.println("新建工程："+projects.getModel());
 			projectsMapper.insertProjects(projects);
-			XMLUtil xmlUtil = new XMLUtil();
-			System.out.println("解析XML并生成表项...");
-			xmlUtil.generateTables(path + s, projects.getPid());
+			List<Element> elements = elementService.findAll();
+			List<Connection> connections = connectionService.findAll();
+			XMLUtil xmlUtil = new XMLUtil(elements, connections);
+			System.out.println("生成nodes...");
+			List<Node> nodeList = xmlUtil.generateNodes(path + s, projects.getPid());
+//			System.out.println(nodeList.toString());
+			for(Node node : nodeList) {
+				nodeService.insertNode(node);
+			}
+			System.out.println("生成pipes...");
+			List<Pipe> pipeList = xmlUtil.generatePipes(path + s, projects.getPid(), nodeList);
+//			System.out.println(pipeList.toString());
+			for(Pipe pipe : pipeList) {
+				pipeService.insertPipe(pipe);
+			}
+
 		}catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return null;
 		}
 		return projects.getPid();

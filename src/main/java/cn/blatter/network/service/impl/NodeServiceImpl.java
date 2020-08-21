@@ -1,9 +1,10 @@
 package cn.blatter.network.service.impl;
 
-import cn.blatter.network.domain.Node;
-import cn.blatter.network.domain.PageInfo;
+import cn.blatter.network.domain.*;
+import cn.blatter.network.mapper.ElementMapper;
 import cn.blatter.network.mapper.NodeMapper;
 import cn.blatter.network.service.NodeService;
+import cn.blatter.network.utils.XMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,18 @@ public class NodeServiceImpl implements NodeService {
 
 	@Autowired
 	private NodeMapper nodeMapper;
+
+	@Autowired
+	private ElementMapper elementMapper;
+
+	@Autowired
+	private ProjectsServiceImpl projectsService;
+
+	@Autowired
+	private ElementServiceImpl elementService;
+
+	@Autowired
+	private ConnectionServiceImpl connectionService;
 
 	/**
 	 * 根据项目id查询所有节点数据
@@ -65,12 +78,25 @@ public class NodeServiceImpl implements NodeService {
 	 */
 	@Override
 	public Integer insertNode(Node node) {
+		if (node.getElementId() != null) {
+			Element element = elementMapper.findById(node.getElementId());
+			node.setElementName(element.getName());
+		}
+
 		Integer result = nodeMapper.insertNode(node);
 		return result;
 	}
 
 	@Override
 	public Integer updateNode(Node node) {
+		if (node.getElementId() != null) {
+			Element element = elementMapper.findById(node.getElementId());
+			node.setElementName(element.getName());
+		}
+		String path = "src/main/resources" + projectsService.queryOne(node.getProjectId()).getModel();
+		List<Element> elements = elementService.findAll();
+		List<Connection> connections = connectionService.findAll();
+		XMLUtil xmlUtil = new XMLUtil(elements, connections);
 		Integer result = nodeMapper.updateById(node);
 		return result;
 	}
