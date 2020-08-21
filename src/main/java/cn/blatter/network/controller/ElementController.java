@@ -28,7 +28,7 @@ public class ElementController {
         return ServiceResponse.createBySuccess(elementList);
     }
 
-    @RequestMapping(value = "/findElementById", method = RequestMethod.GET)
+    @RequestMapping(value = "/findElementById", method = RequestMethod.POST)
     public ServiceResponse findById(@RequestBody Element element) {
         Element elementList = elementService.findById(element.getId());
         return ServiceResponse.createBySuccess(elementList);

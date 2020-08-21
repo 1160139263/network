@@ -22,7 +22,7 @@ public class ConnectionController {
         return ServiceResponse.createBySuccess(connectionList);
     }
 
-    @RequestMapping(value = "/findConnectionByEid", method = RequestMethod.GET)
+    @RequestMapping(value = "/findConnectionByEid", method = RequestMethod.POST)
     public ServiceResponse findByEid(@RequestBody Connection connection) {
         List<Connection> connectionList = connectionService.findByEid(connection.getElement_id());
         return ServiceResponse.createBySuccess(connectionList);
