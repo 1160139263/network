@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AttributeService {
     List<Attribute> findAll();
+    void deleteAttribute(Integer element_id);
 }

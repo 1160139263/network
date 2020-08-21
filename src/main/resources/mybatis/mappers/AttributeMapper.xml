@@ -11,8 +11,8 @@
 <!--  <select id="addElement" resultType="Attribute">-->
 <!--    insert into t_element values (#{id},#{name},#{path});-->
 <!--  </select>-->
-<!--  <delete id="deleteElement" parameterType="integer">-->
-<!--    delete from t_element where id = #{id}-->
-<!--  </delete>-->
+  <delete id="deleteAttribute" parameterType="integer">
+    delete from t_attribute where element_id = #{element_id}
+  </delete>
 
 </mapper>

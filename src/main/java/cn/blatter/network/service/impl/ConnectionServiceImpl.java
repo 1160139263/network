@@ -21,4 +21,13 @@ public class ConnectionServiceImpl implements ConnectionService {
         List<Connection> connectionList = connectionMapper.findAll();
         return connectionList;
     }
+
+    @Override
+    public void setConnection(Integer id,Integer element_id,Double x,Double y,String name){connectionMapper.setConnection(id,element_id,x,y,name);}
+
+    @Override
+    public void deleteConnection(Integer id){connectionMapper.deleteConnection(id);}
+
+    @Override
+    public void addConnection(Integer id,Integer element_id,Double x,Double y,String name){connectionMapper.addConnection(id,element_id,x,y,name);}
 }

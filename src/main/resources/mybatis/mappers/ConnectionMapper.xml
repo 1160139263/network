@@ -5,14 +5,14 @@
   <select id="findAll" resultType="Connection">
     SELECT * FROM t_connection;
   </select>
-<!--  <select id="setElement" resultType="Attribute">-->
-<!--    update t_element set name=#{name} where id=#{id};-->
-<!--  </select>-->
-<!--  <select id="addElement" resultType="Attribute">-->
-<!--    insert into t_element values (#{id},#{name},#{path});-->
-<!--  </select>-->
-<!--  <delete id="deleteElement" parameterType="integer">-->
-<!--    delete from t_element where id = #{id}-->
-<!--  </delete>-->
+  <select id="setConnection" resultType="Connection">
+    update t_connection set name=#{name},element_id=#{element_id},x=#{x},y=#{y} where id=#{id};
+  </select>
+  <select id="addConnection" resultType="Connection">
+    insert into t_connection values (#{id},#{element_id},#{x},#{y},#{name});
+  </select>
+  <delete id="deleteConnection" parameterType="integer">
+    delete from t_connection where id = #{id}
+  </delete>
 
 </mapper>

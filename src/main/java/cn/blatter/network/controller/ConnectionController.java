@@ -5,9 +5,7 @@ import cn.blatter.network.domain.Connection;
 import cn.blatter.network.service.ConnectionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,23 @@ public class ConnectionController {
     public ServiceResponse list() {
         List<Connection> connectionList = connectionService.findAll();
         return ServiceResponse.createBySuccess(connectionList);
+    }
+
+    @PostMapping(value = "/setConnection")
+    public ServiceResponse setConnection(@RequestBody Connection connection) {
+        connectionService.setConnection(connection.getId(),connection.getElement_id(),connection.getX(),connection.getY(),connection.getName());
+        return ServiceResponse.createBySuccess();
+    }
+
+    @PostMapping(value = "/deleteConnection")
+    public ServiceResponse deleteConnection(@RequestBody Connection connection) {
+        connectionService.deleteConnection(connection.getId());
+        return ServiceResponse.createBySuccess();
+    }
+
+    @PostMapping(value = "/addConnection")
+    public ServiceResponse addConnection(@RequestBody Connection connection){
+        connectionService.addConnection(connection.getId(),connection.getElement_id(),connection.getX(),connection.getY(),connection.getName());
+        return ServiceResponse.createBySuccess();
     }
 }

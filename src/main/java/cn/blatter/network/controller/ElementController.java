@@ -36,6 +36,8 @@ public class ElementController {
 
     @PostMapping(value = "/deleteElement")
     public ServiceResponse deleteElement(@RequestBody Element element) {
+        File file =new File("src/main/resources/static" + element.getPath());
+        file.delete();
         elementService.deleteElement(element.getId());
         return ServiceResponse.createBySuccess();
     }

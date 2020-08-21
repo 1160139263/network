@@ -21,4 +21,9 @@ public class AttributeServiceImpl implements AttributeService {
         List<Attribute> attributeList = attributeMapper.findAll();
         return attributeList;
     }
+
+    @Override
+    public void deleteAttribute(Integer element_id) {
+        attributeMapper.deleteAttribute(element_id);
+    }
 }
