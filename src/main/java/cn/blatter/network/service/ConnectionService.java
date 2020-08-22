@@ -10,4 +10,5 @@ public interface ConnectionService {
     void setConnection(Integer id,Integer element_id,Double x,Double y,String name);
     void deleteConnection(Integer id);
     void addConnection(Integer id,Integer element_id,Double x,Double y,String name);
+    Connection queryById(Integer id);
 }

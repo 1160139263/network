@@ -54,6 +54,21 @@
       <if test="lambda != null">
         lambda = #{lambda},
       </if>
+      <if test="modelId != null">
+        model_id = #{modelId},
+      </if>
+      <if test="startConnection != null">
+        start_connection = #{startConnection},
+      </if>
+      <if test="endConnection != null">
+        end_connection = #{endConnection},
+      </if>
+      <if test="startConnectionName != null">
+        start_connection_name = #{startConnectionName},
+      </if>
+      <if test="endConnectionName != null">
+        end_connection_name = #{endConnectionName},
+      </if>
     </set>
     where id = #{id}
   </update>

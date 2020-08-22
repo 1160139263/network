@@ -5,15 +5,11 @@ import cn.blatter.network.domain.Connection;
 import cn.blatter.network.domain.Element;
 import cn.blatter.network.domain.Pipe;
 import cn.blatter.network.domain.Node;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +68,6 @@ public class XMLUtil {
             pipe.setDiameter(Double.parseDouble(e.valueOf("@内径")));
             pipe.setLength(Double.parseDouble(e.valueOf("@长度")));
             pipe.setRoughness(Double.parseDouble(e.valueOf("@粗糙度")));
-            pipe.setLambda(Double.parseDouble(e.valueOf("@摩阻")));
 
             int source = Integer.parseInt(e.selectSingleNode("./mxCell").valueOf("@source"));
             int target = Integer.parseInt(e.selectSingleNode("./mxCell").valueOf("@target"));
@@ -121,6 +116,29 @@ public class XMLUtil {
         out.close();
     }
 
+    // 修改pipe
+    public void updatePipe(String url, Pipe pipe, Integer startId, Integer endId,
+                           Connection s, Connection t) throws DocumentException, IOException {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(url);
+        org.dom4j.Element raw = (org.dom4j.Element) document.selectSingleNode("//*[@id=" + pipe.getModelId() + "]");
+        raw.setName(pipe.getName());
+        raw.addAttribute("内径",pipe.getDiameter().toString());
+        raw.addAttribute("长度",pipe.getLength().toString());
+        raw.addAttribute("粗糙度",pipe.getRoughness().toString());
+        org.dom4j.Element cell = (org.dom4j.Element) raw.selectSingleNode("./mxCell");
+        String style = "edgeStyle=orthogonalEdgeStyle;exitX=" + s.getX().toString() +
+                ";exitY=" + s.getY().toString() + ";exitDx=0;exitDy=0;entryX=" + t.getX().toString() + ";entryY=" +
+                t.getY().toString() + ";entryDx=0;entryDy=0;";
+        cell.addAttribute("style",style);
+        cell.addAttribute("source",startId.toString());
+        cell.addAttribute("target",endId.toString());
+
+        FileWriter out = new FileWriter(url);
+        document.write(out);
+        out.close();
+    }
+
     // 新增node
     public Node insertNode(String url, Node node) throws DocumentException, IOException {
         SAXReader reader = new SAXReader();
@@ -135,21 +153,22 @@ public class XMLUtil {
         maxId++;
         node.setModelId(maxId);
         org.dom4j.Element cell = root.addElement(node.getElementName());
+        cell.addAttribute("名称",node.getName());
         cell.addAttribute("压力",node.getPressure().toString());
         cell.addAttribute("载荷",node.getLoads().toString());
-        cell.addAttribute("海拔",node.getElevation().toString());
         cell.addAttribute("压力已知",String.valueOf(node.isPressureState()));
         cell.addAttribute("载荷已知",String.valueOf(node.isLoadState()));
-        cell.addAttribute("名称",node.getName());
+        cell.addAttribute("海拔",node.getElevation().toString());
         cell.addAttribute("id", String.valueOf(maxId));
 
         Element element = getElementById(node.getElementId());
         org.dom4j.Element mxcell = cell.addElement("mxCell");
+        String style = "shape=image;image=http://localhost:8081/Elements/" +
+                URLEncoder.encode(element.getName(),"UTF-8") + ".svg;verticalLabelPosition=bottom;verticalAlign=top";
+        mxcell.addAttribute("style",style);
         mxcell.addAttribute("vertex","1");
         mxcell.addAttribute("parent","1");
-        String style = "shape=image;image=http://localhost:8081" +
-                element.getPath()  + ";verticalLabelPosition=bottom;verticalAlign=top";
-        mxcell.addAttribute("style",style);
+
 
         double[] size = getSizeFromSVG("src/main/resources/static" + element.getPath());
         org.dom4j.Element mxgeo = mxcell.addElement("mxGeometry");
@@ -163,9 +182,9 @@ public class XMLUtil {
         org.dom4j.Element array = mxcell.addElement("Array");
         for(Connection connection : connections) {
             org.dom4j.Element object = array.addElement("Object");
-            object.addAttribute("perimeter","1");
             object.addAttribute("x",connection.getX().toString());
             object.addAttribute("y",connection.getY().toString());
+            object.addAttribute("perimeter","1");
         }
         array.addAttribute("as","constraints");
 
@@ -174,6 +193,47 @@ public class XMLUtil {
         out.close();
 
         return node;
+    }
+
+    // 新增pipe
+    public Pipe insertPipe(String url, Pipe pipe, Integer startId, Integer endId,
+                           Connection s, Connection t) throws DocumentException, IOException {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(url);
+        org.dom4j.Element root = (org.dom4j.Element) document.selectSingleNode("/mxGraphModel/root");
+        List<org.dom4j.Node> nodes = document.selectNodes("//*[@id]");
+        int maxId = 0;
+        for(org.dom4j.Node n : nodes) {
+            int temp = Integer.parseInt(n.valueOf("@id"));
+            maxId = Math.max(temp, maxId);
+        }
+        maxId++;
+        pipe.setModelId(maxId);
+        org.dom4j.Element cell = root.addElement(pipe.getName());
+        cell.addAttribute("内径",pipe.getDiameter().toString());
+        cell.addAttribute("长度",pipe.getLength().toString());
+        cell.addAttribute("粗糙度",pipe.getRoughness().toString());
+        cell.addAttribute("id", String.valueOf(maxId));
+
+        org.dom4j.Element mxcell = cell.addElement("mxCell");
+        String style = "edgeStyle=orthogonalEdgeStyle;exitX=" + s.getX().toString() +
+                ";exitY=" + s.getY().toString() + ";exitDx=0;exitDy=0;entryX=" + t.getX().toString() + ";entryY=" +
+                t.getY().toString() + ";entryDx=0;entryDy=0;";
+        mxcell.addAttribute("style",style);
+        mxcell.addAttribute("edge","1");
+        mxcell.addAttribute("parent","1");
+        mxcell.addAttribute("source",startId.toString());
+        mxcell.addAttribute("target",endId.toString());
+
+        org.dom4j.Element mxgeo = mxcell.addElement("mxGeometry");
+        mxgeo.addAttribute("relative","1");
+        mxgeo.addAttribute("as","geometry");
+
+        FileWriter out = new FileWriter(url);
+        document.write(out);
+        out.close();
+
+        return pipe;
     }
 
     // 删除node

@@ -17,5 +17,8 @@
   <delete id="deleteConnection" parameterType="integer">
     delete from t_connection where id = #{id}
   </delete>
+  <select id="queryById" parameterType="integer" resultType="Connection">
+    SELECT * FROM t_connection WHERE id = #{id}
+  </select>
 
 </mapper>
