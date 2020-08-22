@@ -4,7 +4,7 @@
 <mapper namespace="cn.blatter.network.mapper.ProjectsMapper">
 
   <select id="findAll" resultType="Projects">
-    select pid, info, author, create_time, update_time, type, com_id
+    select pid, info, author, model, create_time, update_time, type, com_id
     from t_projects
   </select>
 
@@ -22,6 +22,9 @@
       </if>
       <if test="author != null">
         author = #{author},
+      </if>
+      <if test="model != null">
+        model = #{model},
       </if>
       <if test="updateTime != null">
         update_time = now(),
@@ -79,13 +82,13 @@
   </insert>
 
   <select id="queryById" parameterType="integer" resultType="Projects">
-    select pid, info, author, create_time, update_time, type, com_id
+    select pid, info, model, author, create_time, update_time, type, com_id
     from t_projects
     where pid = #{pid}
   </select>
 
   <select id="pageQuery" parameterType="integer" resultType="Projects">
-    select pid, info, author, create_time, update_time, type, com_id
+    select pid, info, model, author, create_time, update_time, type, com_id
     from t_projects
     limit #{pageStart}, #{pageSize}
   </select>

@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.blatter.network.mapper.NodeMapper">
   <select id="findAll" resultType="Node">
-    select id, project_id, element_id, element_name, pressure, pressure_state, loads, load_state, elevation, name, x, y
+    select id, project_id, model_id, element_id, element_name, pressure, pressure_state, loads, load_state, elevation, name, x, y
     from t_node
   </select>
 
   <select id="queryById" parameterType="integer" resultType="Node">
-    select id, project_id, element_id, element_name, pressure, loads, pressure_state, load_state, elevation, name, x, y
+    select id, project_id, model_id, element_id, element_name, pressure, loads, pressure_state, load_state, elevation, name, x, y
     from t_node
     where id = #{id}
   </select>
 
   <select id="queryByProject" parameterType="integer" resultType="Node">
-    select id, project_id, element_id, element_name, pressure, loads, pressure_state, load_state, elevation, name, x, y
+    select id, project_id, model_id, element_id, element_name, pressure, loads, pressure_state, load_state, elevation, name, x, y
     from t_node
     where project_id = #{id}
   </select>
@@ -60,6 +60,9 @@
       <if test="elementName != null">
         element_name,
       </if>
+      <if test="modelId != null">
+        model_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="projectId != null">
@@ -94,6 +97,9 @@
       </if>
       <if test="elementName != null">
         #{elementName},
+      </if>
+      <if test="modelId != null">
+        #{modelId},
       </if>
     </trim>
   </insert>
@@ -139,7 +145,7 @@
   </update>
 
   <select id="pageQuery" parameterType="integer" resultType="Node">
-    select id, project_id, element_id, element_name, pressure, loads, pressure_state, load_state, elevation, name, x, y
+    select id, project_id, model_id, element_id, element_name, pressure, loads, pressure_state, load_state, elevation, name, x, y
     from t_node
     where project_id = #{pid}
     limit #{pageStart}, #{pageSize}

@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <mxGraphModel>
     <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
-        <分输站 名称="分输站01" 压力="111" 载荷="123" 压力已知="true" 载荷已知="false" 海拔="0" id="55">
+        <分输站 名称="分输站01" 压力="1234.0" 载荷="1234.0" 压力已知="true" 载荷已知="false" 海拔="1234.0" id="55">
             <mxCell style="shape=image;image=http://localhost:8081/Elements/%E5%88%86%E8%BE%93%E7%AB%99.svg;verticalLabelPosition=bottom;verticalAlign=top" vertex="1" parent="1">
-                <mxGeometry x="258" y="131" width="126.5" height="36" as="geometry"/>
+                <mxGeometry x="1234.0" y="1234.0" width="126.5" height="36" as="geometry"/>
                 <Array as="constraints">
                     <Object x="0" y="0.5" perimeter="1"/>
                     <Object x="1" y="0.5" perimeter="1"/>

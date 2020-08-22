@@ -32,6 +32,9 @@ public class NodeServiceImpl implements NodeService {
 	@Autowired
 	private ConnectionServiceImpl connectionService;
 
+	@Autowired
+	private PipeServiceImpl pipeService;
+
 	/**
 	 * 根据项目id查询所有节点数据
 	 * @param pid
@@ -67,8 +70,18 @@ public class NodeServiceImpl implements NodeService {
 	 */
 	@Override
 	public Integer deleteNode(Integer id) {
-		Integer result = nodeMapper.deleteById(id);
-		return result;
+		try {
+			Node node = nodeMapper.queryById(id);
+			String path = "src/main/resources" + projectsService.queryOne(node.getProjectId()).getModel();
+			List<Element> elements = elementService.findAll();
+			List<Connection> connections = connectionService.findAll();
+			XMLUtil xmlUtil = new XMLUtil(elements, connections);
+			xmlUtil.deleteNode(path,node);
+			return nodeMapper.deleteById(id);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	/**
@@ -82,9 +95,17 @@ public class NodeServiceImpl implements NodeService {
 			Element element = elementMapper.findById(node.getElementId());
 			node.setElementName(element.getName());
 		}
-
-		Integer result = nodeMapper.insertNode(node);
-		return result;
+		try {
+			String path = "src/main/resources" + projectsService.queryOne(node.getProjectId()).getModel();
+			List<Element> elements = elementService.findAll();
+			List<Connection> connections = connectionService.findAll();
+			XMLUtil xmlUtil = new XMLUtil(elements, connections);
+			Node newer = xmlUtil.insertNode(path, node);
+			return nodeMapper.insertNode(newer);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	@Override
@@ -93,11 +114,16 @@ public class NodeServiceImpl implements NodeService {
 			Element element = elementMapper.findById(node.getElementId());
 			node.setElementName(element.getName());
 		}
-		String path = "src/main/resources" + projectsService.queryOne(node.getProjectId()).getModel();
-		List<Element> elements = elementService.findAll();
-		List<Connection> connections = connectionService.findAll();
-		XMLUtil xmlUtil = new XMLUtil(elements, connections);
-		Integer result = nodeMapper.updateById(node);
-		return result;
+		try {
+			String path = "src/main/resources" + projectsService.queryOne(node.getProjectId()).getModel();
+			List<Element> elements = elementService.findAll();
+			List<Connection> connections = connectionService.findAll();
+			XMLUtil xmlUtil = new XMLUtil(elements, connections);
+			xmlUtil.updateNode(path, node);
+			return nodeMapper.updateById(node);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 }

@@ -2,6 +2,8 @@ package cn.blatter.network.service.impl;
 
 import cn.blatter.network.domain.*;
 import cn.blatter.network.mapper.ComponentMapper;
+import cn.blatter.network.mapper.NodeMapper;
+import cn.blatter.network.mapper.PipeMapper;
 import cn.blatter.network.mapper.ProjectsMapper;
 import cn.blatter.network.service.*;
 import cn.blatter.network.utils.XMLUtil;
@@ -36,10 +38,10 @@ public class ProjectsServiceImpl implements ProjectsService {
 	private ConnectionService connectionService;
 
 	@Autowired
-	private NodeService nodeService;
+	private NodeMapper nodeMapper;
 
 	@Autowired
-	private PipeService pipeService;
+	private PipeMapper pipeMapper;
 
 	static String path = "src/main/resources";
 
@@ -96,17 +98,17 @@ public class ProjectsServiceImpl implements ProjectsService {
 			XMLUtil xmlUtil = new XMLUtil(elements, connections);
 			System.out.println("生成nodes...");
 			List<Node> nodeList = xmlUtil.generateNodes(path + s, projects.getPid());
-//			System.out.println(nodeList.toString());
+			System.out.println(nodeList.toString());
 			for(Node node : nodeList) {
-				nodeService.insertNode(node);
+				nodeMapper.insertNode(node);
 			}
 			System.out.println("生成pipes...");
 			List<Pipe> pipeList = xmlUtil.generatePipes(path + s, projects.getPid(), nodeList);
-//			System.out.println(pipeList.toString());
+			System.out.println(pipeList.toString());
 			for(Pipe pipe : pipeList) {
-				pipeService.insertPipe(pipe);
+				pipeMapper.insertPipe(pipe);
 			}
-
+			System.out.println("生成完成");
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -2,18 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.blatter.network.mapper.PipeMapper">
   <select id="findAll" resultType="Pipe">
-    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name
+    select id, project_id, model_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name,
+           start_connection, end_connection, start_connection_name, end_connection_name
     from t_pipe
   </select>
 
   <select id="queryById" parameterType="integer" resultType="Pipe">
-    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name
+    select id, project_id, model_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name,
+           start_connection, end_connection, start_connection_name, end_connection_name
     from t_pipe
     where id = #{id}
   </select>
 
   <select id="queryByProject" parameterType="integer" resultType="Pipe">
-    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name
+    select id, project_id, model_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name,
+           start_connection, end_connection, start_connection_name, end_connection_name
     from t_pipe
     where project_id = #{id}
   </select>
@@ -100,6 +103,9 @@
       <if test="endConnectionName != null">
         end_connection_name,
       </if>
+      <if test="modelId != null">
+        model_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="projectId != null">
@@ -144,6 +150,9 @@
       <if test="endConnectionName != null">
         #{endConnectionName},
       </if>
+      <if test="modelId != null">
+        #{modelId},
+      </if>
     </trim>
   </insert>
 
@@ -154,7 +163,7 @@
   </delete>
 
   <select id="pageQuery" parameterType="integer" resultType="Pipe">
-    select id, project_id, start_id, end_id, diameter, length, roughness, lambda, name,
+    select id, project_id, model_id, start_id, end_id, diameter, length, roughness, lambda, name,
            start_name, end_name, start_connection, end_connection, start_connection_name, end_connection_name
     from t_pipe
     where project_id = #{pid}

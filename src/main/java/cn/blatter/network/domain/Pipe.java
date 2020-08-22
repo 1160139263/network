@@ -18,6 +18,7 @@ public class Pipe {
 	private String name;
 	private Integer id;
 	private Integer projectId;
+	private Integer modelId;
 	private Integer startId;
 	private Integer startConnection;
 	private Integer endConnection;

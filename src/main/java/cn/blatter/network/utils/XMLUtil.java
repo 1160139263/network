@@ -4,11 +4,17 @@ package cn.blatter.network.utils;
 import cn.blatter.network.domain.Connection;
 import cn.blatter.network.domain.Element;
 import cn.blatter.network.domain.Pipe;
+import cn.blatter.network.domain.Node;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +22,7 @@ import java.util.List;
 public class XMLUtil {
     private final List<Element> elementList;
     private final List<Connection> connectionList;
-    private List<cn.blatter.network.domain.Node> nodeList;
+    private List<Node> nodeList;
 
     public XMLUtil(List<Element> elementList,List<Connection> connectionList) {
         this.elementList = elementList;
@@ -24,16 +30,17 @@ public class XMLUtil {
     }
 
     // 分析nodes返回生成
-    public List<cn.blatter.network.domain.Node> generateNodes(String url, Integer pid) throws DocumentException {
-        List<cn.blatter.network.domain.Node> nodeList = new ArrayList<>();
+    public List<Node> generateNodes(String url, Integer pid) throws DocumentException {
+        List<Node> nodeList = new ArrayList<>();
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
-        List<Node> vertexList = document.selectNodes("//mxCell[@vertex='1']/parent::*");
-        for (Node n : vertexList) {
+        List<org.dom4j.Node> vertexList = document.selectNodes("//mxCell[@vertex='1']/parent::*");
+        for (org.dom4j.Node n : vertexList) {
 //            System.out.println(n.asXML());
-            cn.blatter.network.domain.Node node = new cn.blatter.network.domain.Node();
+            Node node = new Node();
             node.setElementName(n.getName());
             node.setElementId(getElementIdByName(n.getName()));
+            node.setModelId(Integer.parseInt(n.valueOf("@id")));
             node.setName(n.valueOf("@名称"));
             node.setProjectId(pid);
             node.setPressure(Double.parseDouble(n.valueOf("@压力")));
@@ -50,18 +57,18 @@ public class XMLUtil {
     }
 
     // 分析pipes返回生成
-    public List<Pipe> generatePipes(String url, Integer pid,
-                                    List<cn.blatter.network.domain.Node> nodeList) throws DocumentException {
+    public List<Pipe> generatePipes(String url, Integer pid, List<Node> nodeList) throws DocumentException {
         List<Pipe> pipeList = new ArrayList<>();
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
-        List<Node> edgeList = document.selectNodes("//mxCell[@edge='1']/parent::*");
+        List<org.dom4j.Node> edgeList = document.selectNodes("//mxCell[@edge='1']/parent::*");
         this.nodeList = nodeList;
-        for (Node e : edgeList) {
+        for (org.dom4j.Node e : edgeList) {
 //            System.out.println(n.asXML());
             Pipe pipe = new Pipe();
             pipe.setName(e.getName());
             pipe.setProjectId(pid);
+            pipe.setModelId(Integer.parseInt(e.valueOf("@id")));
             pipe.setDiameter(Double.parseDouble(e.valueOf("@内径")));
             pipe.setLength(Double.parseDouble(e.valueOf("@长度")));
             pipe.setRoughness(Double.parseDouble(e.valueOf("@粗糙度")));
@@ -92,15 +99,116 @@ public class XMLUtil {
         return pipeList;
     }
 
-    // 新增/修改nodes
-    public void updateNodes(String url, List<cn.blatter.network.domain.Node> nodeList) throws DocumentException {
+    // 修改node
+    public void updateNode(String url, Node node)
+            throws DocumentException, IOException {
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
-        for(cn.blatter.network.domain.Node node : nodeList) {
-            Node raw = document.selectSingleNode("//"+ node.getName() + "[@名称=" + node.getElementName() + "]");
+        org.dom4j.Element raw = (org.dom4j.Element) document.selectSingleNode("//*[@id=" + node.getModelId() + "]");
+        raw.setName(node.getElementName());
+        raw.addAttribute("压力",node.getPressure().toString());
+        raw.addAttribute("载荷",node.getLoads().toString());
+        raw.addAttribute("海拔",node.getElevation().toString());
+        raw.addAttribute("压力已知",String.valueOf(node.isPressureState()));
+        raw.addAttribute("载荷已知",String.valueOf(node.isLoadState()));
+        raw.addAttribute("名称",node.getName());
+        org.dom4j.Element geo = (org.dom4j.Element) raw.selectSingleNode("./mxCell/mxGeometry");
+        geo.addAttribute("x",node.getX().toString());
+        geo.addAttribute("y",node.getY().toString());
 
+        FileWriter out = new FileWriter(url);
+        document.write(out);
+        out.close();
+    }
+
+    // 新增node
+    public Node insertNode(String url, Node node) throws DocumentException, IOException {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(url);
+        org.dom4j.Element root = (org.dom4j.Element) document.selectSingleNode("/mxGraphModel/root");
+        List<org.dom4j.Node> nodes = document.selectNodes("//*[@id]");
+        int maxId = 0;
+        for(org.dom4j.Node n : nodes) {
+            int temp = Integer.parseInt(n.valueOf("@id"));
+            maxId = Math.max(temp, maxId);
         }
+        maxId++;
+        node.setModelId(maxId);
+        org.dom4j.Element cell = root.addElement(node.getElementName());
+        cell.addAttribute("压力",node.getPressure().toString());
+        cell.addAttribute("载荷",node.getLoads().toString());
+        cell.addAttribute("海拔",node.getElevation().toString());
+        cell.addAttribute("压力已知",String.valueOf(node.isPressureState()));
+        cell.addAttribute("载荷已知",String.valueOf(node.isLoadState()));
+        cell.addAttribute("名称",node.getName());
+        cell.addAttribute("id", String.valueOf(maxId));
 
+        Element element = getElementById(node.getElementId());
+        org.dom4j.Element mxcell = cell.addElement("mxCell");
+        mxcell.addAttribute("vertex","1");
+        mxcell.addAttribute("parent","1");
+        String style = "shape=image;image=http://localhost:8081" +
+                element.getPath()  + ";verticalLabelPosition=bottom;verticalAlign=top";
+        mxcell.addAttribute("style",style);
+
+        double[] size = getSizeFromSVG("src/main/resources/static" + element.getPath());
+        org.dom4j.Element mxgeo = mxcell.addElement("mxGeometry");
+        mxgeo.addAttribute("x",node.getX().toString());
+        mxgeo.addAttribute("y",node.getY().toString());
+        mxgeo.addAttribute("width", String.valueOf(size[0]/2));
+        mxgeo.addAttribute("height", String.valueOf(size[1]/2));
+        mxgeo.addAttribute("as","geometry");
+
+        List<Connection> connections = getConnectionListByEid(node.getElementId());
+        org.dom4j.Element array = mxcell.addElement("Array");
+        for(Connection connection : connections) {
+            org.dom4j.Element object = array.addElement("Object");
+            object.addAttribute("perimeter","1");
+            object.addAttribute("x",connection.getX().toString());
+            object.addAttribute("y",connection.getY().toString());
+        }
+        array.addAttribute("as","constraints");
+
+        FileWriter out = new FileWriter(url);
+        document.write(out);
+        out.close();
+
+        return node;
+    }
+
+    // 删除node
+    public void deleteNode(String url, Node node) throws DocumentException, IOException {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(url);
+        org.dom4j.Element root = (org.dom4j.Element) document.selectSingleNode("/mxGraphModel/root");
+        org.dom4j.Node raw = document.selectSingleNode("//*[@id=" + node.getModelId() + "]");
+        root.remove(raw);
+
+        FileWriter out = new FileWriter(url);
+        document.write(out);
+        out.close();
+    }
+
+    // 删除pipe
+    public void deletePipe(String url, Pipe pipe) throws DocumentException, IOException {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(url);
+        org.dom4j.Element root = (org.dom4j.Element) document.selectSingleNode("/mxGraphModel/root");
+        org.dom4j.Node raw = document.selectSingleNode("//*[@id=" + pipe.getModelId() + "]");
+        root.remove(raw);
+
+        FileWriter out = new FileWriter(url);
+        document.write(out);
+        out.close();
+    }
+
+    public Element getElementById(Integer id) {
+        for(Element element : elementList) {
+            if(element.getId().equals(id)) {
+                return element;
+            }
+        }
+        return null;
     }
 
     public Integer getElementIdByName(String name) {
@@ -112,13 +220,23 @@ public class XMLUtil {
         return null;
     }
 
-    public cn.blatter.network.domain.Node getNodeByName(String name) {
-        for(cn.blatter.network.domain.Node node : nodeList) {
+    public Node getNodeByName(String name) {
+        for(Node node : nodeList) {
             if(node.getName().equals(name)) {
                 return node;
             }
         }
         return null;
+    }
+
+    public List<Connection> getConnectionListByEid(Integer eid) {
+        List<Connection> list = new ArrayList<>();
+        for(Connection connection: connectionList) {
+            if(connection.getElement_id().equals(eid)) {
+                list.add(connection);
+            }
+        }
+        return list;
     }
 
     public Connection getConnection(Double x, Double y, Integer id) {
@@ -147,6 +265,18 @@ public class XMLUtil {
         int ey2 = style.indexOf("entryY=") + 7;
         style = style.substring(ey2);
         result[3] = Double.parseDouble(style.substring(0, style.indexOf(";")));
+        return result;
+    }
+
+    public double[] getSizeFromSVG(String url) throws DocumentException {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(url);
+        org.dom4j.Node svg = document.selectSingleNode("//svg");
+        double[] result = new double[2];
+        String s1 = svg.valueOf("@width");
+        String s2 = svg.valueOf("@height");
+        result[0] = Double.parseDouble(s1.substring(0,s1.length()-2));
+        result[1] = Double.parseDouble(s2.substring(0,s2.length()-2));
         return result;
     }
 

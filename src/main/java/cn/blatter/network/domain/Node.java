@@ -18,6 +18,7 @@ import java.io.Serializable;
 public class Node implements Serializable {
 	private String name;
 	private Integer id;
+	private Integer modelId;
 	private Integer elementId;
 	private String elementName;
 	private Integer projectId;
