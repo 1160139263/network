@@ -76,6 +76,11 @@ public class ProjectsServiceImpl implements ProjectsService {
 		return projectsMapper.findAll();
 	}
 
+	/**
+	 * 新增
+	 * @param projects
+	 * @return
+	 */
 	@Override
 	public Integer insertOne(Projects projects) {
 		try{
@@ -115,6 +120,50 @@ public class ProjectsServiceImpl implements ProjectsService {
 		}
 		return projects.getPid();
 	}
+
+	/**
+	 * 修改model
+	 * @param projects
+	 * @return
+	 */
+	@Override
+	public Integer saveProjectModel(Projects projects) {
+		try {
+			System.out.println("删除原有node,pipe...");
+			List<Node> nodeList = nodeMapper.queryByProject(projects.getPid());
+			List<Pipe> pipeList = pipeMapper.queryByProject(projects.getPid());
+			for(Node node : nodeList) {
+				nodeMapper.deleteById(node.getId());
+			}
+			for(Pipe pipe : pipeList) {
+				pipeMapper.deleteById(pipe.getId());
+			}
+			List<Element> elements = elementService.findAll();
+			List<Connection> connections = connectionService.findAll();
+			String s = "/Models/" + projects.getAuthor()+ "-" + projects.getInfo() + ".xml";
+			XMLUtil xmlUtil = new XMLUtil(elements, connections);
+			System.out.println("生成nodes...");
+			List<Node> nodes = xmlUtil.generateNodes(path + s, projects.getPid());
+			System.out.println(nodeList.toString());
+			for(Node node : nodes) {
+				nodeMapper.insertNode(node);
+			}
+			System.out.println("生成pipes...");
+			List<Pipe> pipes = xmlUtil.generatePipes(path + s, projects.getPid(), nodeList);
+			System.out.println(pipeList.toString());
+			for(Pipe pipe : pipes) {
+				pipeMapper.insertPipe(pipe);
+			}
+			System.out.println("生成完成");
+			return projects.getPid();
+
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
 
 	/**
 	 * 删除

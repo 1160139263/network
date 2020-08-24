@@ -100,7 +100,8 @@ public class ProjectsController {
 		br.write(p.getModel());
 		br.flush();
 		br.close();
-		if (projects.getModel() == "") {
+		Integer result = projectsService.saveProjectModel(projects);
+		if (projects.getModel() == "" && result != 1) {
 			return ServiceResponse.createByError();
 		}
 		return ServiceResponse.createBySuccess(projects);

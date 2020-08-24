@@ -21,6 +21,8 @@ public interface ProjectsService {
 
 	Integer insertOne(Projects projects);
 
+	Integer saveProjectModel(Projects projects);
+
 	Integer deleteProject(Integer id);
 
 	List<GasProperty> getProjectComponent(Integer id);
