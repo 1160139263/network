@@ -144,17 +144,18 @@ public class ProjectsServiceImpl implements ProjectsService {
 			XMLUtil xmlUtil = new XMLUtil(elements, connections);
 			System.out.println("生成nodes...");
 			List<Node> nodes = xmlUtil.generateNodes(path + s, projects.getPid());
-			System.out.println(nodeList.toString());
+			System.out.println(nodes.toString());
 			for(Node node : nodes) {
 				nodeMapper.insertNode(node);
 			}
 			System.out.println("生成pipes...");
-			List<Pipe> pipes = xmlUtil.generatePipes(path + s, projects.getPid(), nodeList);
-			System.out.println(pipeList.toString());
+			List<Pipe> pipes = xmlUtil.generatePipes(path + s, projects.getPid(), nodes);
+			System.out.println(pipes.toString());
 			for(Pipe pipe : pipes) {
 				pipeMapper.insertPipe(pipe);
 			}
 			System.out.println("生成完成");
+			projectsMapper.updateById(projects);
 			return projects.getPid();
 
 		}catch (Exception e) {
