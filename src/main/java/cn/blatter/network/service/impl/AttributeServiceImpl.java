@@ -29,6 +29,12 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
+    public void setAttribute(Integer element_id,Double pressure,Boolean pressure_state,Double loads,Boolean load_state,Double elevation){attributeMapper.setAttribute(element_id,pressure,pressure_state,loads,load_state,elevation);}
+
+    @Override
+    public void addAttribute(Integer element_id,Double pressure,Boolean pressure_state,Double loads,Boolean load_state,Double elevation){attributeMapper.addAttribute(element_id,pressure,pressure_state,loads,load_state,elevation);}
+
+    @Override
     public void deleteAttribute(Integer element_id) {
         attributeMapper.deleteAttribute(element_id);
     }

@@ -8,12 +8,12 @@
   <select id="findById" resultType="Attribute">
     SELECT * FROM t_attribute where element_id=#{element_id};
   </select>
-<!--  <select id="setElement" resultType="Attribute">-->
-<!--    update t_element set name=#{name} where id=#{id};-->
-<!--  </select>-->
-<!--  <select id="addElement" resultType="Attribute">-->
-<!--    insert into t_element values (#{id},#{name},#{path});-->
-<!--  </select>-->
+  <select id="setAttribute" resultType="Attribute">
+    update t_attribute set pressure=#{pressure},pressure_state=#{pressure_state},loads=#{loads},load_state=#{load_state},elevation=#{elevation} where element_id=#{element_id};
+  </select>
+  <select id="addAttribute" resultType="Attribute">
+    insert into t_attribute values (#{element_id},#{pressure},#{pressure_state},#{loads},#{load_state},#{elevation});
+  </select>
   <delete id="deleteAttribute" parameterType="integer">
     delete from t_attribute where element_id = #{element_id}
   </delete>

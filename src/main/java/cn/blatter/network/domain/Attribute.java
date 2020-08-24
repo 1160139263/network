@@ -9,8 +9,8 @@ import lombok.*;
 public class Attribute {
     private Integer element_id;
     private Double pressure;
-    private boolean pressure_state;
+    private Boolean pressure_state;
     private Double loads;
-    private boolean load_state;
+    private Boolean load_state;
     private Double elevation;
 }
