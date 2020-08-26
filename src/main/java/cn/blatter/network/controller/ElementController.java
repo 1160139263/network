@@ -41,7 +41,8 @@ public class ElementController {
 
     @PostMapping(value = "/deleteElement")
     public ServiceResponse deleteElement(@RequestBody Element element) {
-        File file =new File(getPathRoot() + element.getPath());
+        File file =new File(getPathRoot() + element.getName() + ".svg");
+        System.out.println(getPathRoot() + element.getName() + ".svg");
         file.delete();
         elementService.deleteElement(element.getId());
         return ServiceResponse.createBySuccess();
@@ -51,6 +52,7 @@ public class ElementController {
     public ServiceResponse addElement(@RequestBody Element element){
         try{
             File file = new File(getPathRoot() + element.getName() + ".svg");
+            System.out.println(getPathRoot() + element.getName() + ".svg");
             OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file,false),"UTF-8");
             BufferedWriter br = new BufferedWriter(out);
             String str = element.getPath();
