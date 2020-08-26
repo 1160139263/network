@@ -1,8 +1,14 @@
 package cn.blatter.network.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import javax.servlet.ServletContext;
+import java.io.File;
 
 /**
  * @author tanyao
@@ -27,4 +33,20 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 				.allowCredentials(true)
 				.maxAge(3600);
 	}
+
+	/**
+	 * 配置访问静态资源
+	 * @param registry
+	 */
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry){
+		String pathRoot = this.getClass().getResource("").getPath();
+		int index = pathRoot.indexOf("target/");
+		pathRoot = pathRoot.substring(1, index);
+		System.out.println(pathRoot + "Elements/");
+		registry.addResourceHandler("/Elements/**")
+				.addResourceLocations("file:" + pathRoot + "Elements/");
+		super.addResourceHandlers(registry);
+	}
+
 }

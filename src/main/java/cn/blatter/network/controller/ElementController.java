@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 public class ElementController {
 
-    static String path = "src/main/resources/static/Elements/";
 
     @Autowired
     private ElementService elementService;
@@ -42,7 +41,7 @@ public class ElementController {
 
     @PostMapping(value = "/deleteElement")
     public ServiceResponse deleteElement(@RequestBody Element element) {
-        File file =new File("src/main/resources/static" + element.getPath());
+        File file =new File(getPathRoot() + element.getPath());
         file.delete();
         elementService.deleteElement(element.getId());
         return ServiceResponse.createBySuccess();
@@ -51,7 +50,7 @@ public class ElementController {
     @PostMapping(value = "/addElement")
     public ServiceResponse addElement(@RequestBody Element element){
         try{
-            File file = new File(path + element.getName() + ".svg");
+            File file = new File(getPathRoot() + element.getName() + ".svg");
             OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file,false),"UTF-8");
             BufferedWriter br = new BufferedWriter(out);
             String str = element.getPath();
@@ -64,5 +63,12 @@ public class ElementController {
         }
         elementService.addElement(element.getId(),element.getName(),element.getPath());
         return ServiceResponse.createBySuccess();
+    }
+
+    public String getPathRoot() {
+        String pathRoot = this.getClass().getResource("").getPath();
+        int index = pathRoot.indexOf("target/");
+        pathRoot = pathRoot.substring(1, index);
+        return pathRoot + "Elements/";
     }
 }
