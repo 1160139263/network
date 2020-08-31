@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="339px" height="64px" viewBox="0 0 339 64" enable-background="new 0 0 339 64" xml:space="preserve">  <image id="image0" width="339" height="64" x="0" y="0"
-    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVMAAABAAgMAAADaEHxmAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX///8Q/wAAAAD///9y
-uWDIAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAHdElNRQfkBQ4IHgi9t+0iAAAAr0lEQVRY
-w+3YQQqAIBAF0Aw8QpfoFB6hRf9o7VvGnDIQI5PUICTH6e/84FvUYGHXNZNhvm0lqYAJOwX86nsV
-+ap1FZPfaAhU/eGya3kqjpNLo0W1X/Oqe7QKedVxnFQieqAiXMTiOEbqSKksuE1yD23iVVp/1arb
-g3m9JD6u4/m2uKiczoFCKqdvQRk1GafW8j/wmWrOQqY6+Y0WqOarxlUTdhXfD/BROd1nFVGryg5s
-50Mj8vf+/AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wNS0xNFQwODozMDowOCswMDowMJGPl4cA
-AAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDUtMTRUMDg6MzA6MDgrMDA6MDDg0i87AAAAAElFTkSu
-QmCC" />
+<?xml version="1.0"?>
+<svg width="250" height="80" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <marker id="se_marker_end_svg_13" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="mcircle" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+  <marker id="se_marker_start_svg_13" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="mcircle" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="svg_24"/>
+  <g id="svg_9"/>
+  <g id="svg_10"/>
+  <line fill="none" id="svg_13" marker-end="url(#se_marker_end_svg_13)" marker-start="url(#se_marker_start_svg_13)" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="244.999999" x2="5" y1="39" y2="41"/>
+  <path d="m85.869323,0.999849l78.26174,0l-39.13087,38.999998l39.13087,38.999998l-78.261821,0l39.130951,-38.999998l-39.13087,-38.999998z" fill="#00ff00" id="svg_1" stroke="#00bf00" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" transform="rotate(90 125 39.9998)"/>
+ </g>
 </svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<svg width="250" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <marker id="se_marker_start_svg_3" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="mcircle" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+  <marker id="se_marker_end_svg_3" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="mcircle" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <line fill="none" id="svg_3" marker-end="url(#se_marker_end_svg_3)" marker-start="url(#se_marker_start_svg_3)" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="5" x2="244.999996" y1="25" y2="25"/>
+  <g id="svg_10">
+   <rect fill="#666666" height="49.999998" id="svg_8" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-opacity="0" stroke-width="3" width="93" x="79.125" y="0"/>
+   <ellipse cx="77.125" cy="25" fill="#28440c" id="svg_6" rx="10" ry="24.499999" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-opacity="0" stroke-width="3"/>
+   <ellipse cx="172.875" cy="25" fill="#666666" id="svg_9" rx="10" ry="24.499999" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-opacity="0" stroke-width="3"/>
+  </g>
+ </g>
+</svg>

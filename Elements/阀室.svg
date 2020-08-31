@@ -1,39 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="128px" height="128px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">  <image id="image0" width="64" height="64" x="0" y="0"
-    href="data:image/png;base64,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" />
+<?xml version="1.0"?>
+<svg width="150" height="120" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <linearGradient id="svg_34" x1="0" x2="1" y1="0" y2="0">
+   <stop offset="0" stop-color="#00ff00" stop-opacity="0.996094"/>
+   <stop offset="0.604187" stop-color="#007f00" stop-opacity="0.996094"/>
+   <stop offset="1" stop-color="#007f00" stop-opacity="0.996094"/>
+  </linearGradient>
+  <linearGradient id="svg_36" x1="0" x2="0" y1="0" y2="1">
+   <stop offset="0" stop-color="#ffff00" stop-opacity="0.996094"/>
+   <stop offset="1" stop-color="#d69617" stop-opacity="0.992188"/>
+  </linearGradient>
+  <linearGradient id="svg_40" x1="0" x2="1" y1="0" y2="0">
+   <stop offset="0" stop-color="#999999" stop-opacity="0.996094"/>
+   <stop offset="0.385437" stop-color="#ffffff"/>
+   <stop offset="1" stop-color="#ffffff"/>
+  </linearGradient>
+  <linearGradient id="svg_44" x1="0" x2="0" y1="0" y2="1">
+   <stop offset="0" stop-color="#ffff00" stop-opacity="0.996094"/>
+   <stop offset="1" stop-color="#c48c00" stop-opacity="0.996094"/>
+  </linearGradient>
+  <linearGradient id="svg_45" y1="1" y2="1">
+   <stop offset="0" stop-color="#00ff00"/>
+   <stop offset="0.475281" stop-color="#007f00" stop-opacity="0.996094"/>
+  </linearGradient>
+  <linearGradient id="svg_47" x1="0" x2="1" y1="0" y2="0">
+   <stop offset="0" stop-color="#00ff00"/>
+   <stop offset="0" stop-color="#00ff00" stop-opacity="0.996094"/>
+   <stop offset="1" stop-color="#0b630b" stop-opacity="0.992188"/>
+  </linearGradient>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <rect fill="url(#svg_34)" height="118.499985" id="svg_28" stroke="url(#svg_47)" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" width="148.500009" x="0.5" y="0.765634"/>
+  <g id="svg_24"/>
+  <g id="svg_9"/>
+  <g id="svg_10"/>
+  <rect fill="#ffffff" height="103.500005" id="svg_32" stroke="url(#svg_40)" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" transform="rotate(180 74 60)" width="136.999997" x="5.500009" y="8.249992"/>
+  <line fill="none" id="svg_26" stroke="url(#svg_45)" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="11" x2="139.000001" y1="60.500002" y2="59.500002"/>
+  <path d="m41.25,39.765625c1.799999,0 2.700001,0 3.599998,0c0.900002,0 1.800003,0 2.700001,0c0.900002,0 1.799999,0 2.700001,0c0.799999,0 1.700001,0 2.599998,0l0.900002,0l0.900002,0" fill="none" id="svg_33" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-opacity="0" stroke-width="3"/>
+  <path d="m36.422879,9.999995l77.154318,0l-38.577159,49.999997l38.577159,49.999997l-77.154398,0l38.577239,-49.999997l-38.577159,-49.999997z" fill="url(#svg_36)" id="svg_35" stroke="url(#svg_44)" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" transform="rotate(-90 75 60)"/>
+ </g>
 </svg>

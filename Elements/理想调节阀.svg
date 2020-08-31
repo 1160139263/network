@@ -1,14 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="333px" height="92px" viewBox="0 0 333 92" enable-background="new 0 0 333 92" xml:space="preserve">  <image id="image0" width="333" height="92" x="0" y="0"
-    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAU0AAABcAgMAAACXYw/dAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX///8A/wAAAAD////e
-eSK5AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAHdElNRQfkBQ4JFyxRtNiNAAAA90lEQVRY
-w+3YQQ6DIBAFUDVh0z2X6Ck4ggvH83gJ9102c8oqGqAGwRTSODB/5ZD4FmYCg03z74CbvjZUfqGg
-akMHp1jU4WeJOiqydRVFtM3XVYySQ7WbQWSUUUYZpYC6W6pFU6YKWqg5QiwqkoYqauhOGDRxpiSH
-bp91R/VMyWg6CgbdypLQ7hVHl3vJigqIo4+JFoo4xVGABTXPAbRDJIU+8TTziDP4MmIob0ZJoecd
-Ir1ooKVKRRvnJ2VBaGBDcVG1ViLDLnU39Pw4sejgL32JnVF3Q4OR9oPqtFH0Qoih/XGlKvSwVBmq
-jmtpd1NaqPf9atDS8wG0kmsAr8e1lgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wNS0xNFQwOToy
-Mzo0NCswMDowMCVKTk8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDUtMTRUMDk6MjM6NDQrMDA6
-MDBUF/bzAAAAAElFTkSuQmCC" />
+<?xml version="1.0"?>
+<svg width="250" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <marker id="se_marker_end_svg_13" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="mcircle" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+  <marker id="se_marker_start_svg_13" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="mcircle" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+  <marker id="se_marker_end_svg_5" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="rightarrow" viewBox="0 0 100 100">
+   <path d="m100,50l-100,40l30,-40l-30,-40z" fill="#00ff00" stroke="#00ff00" stroke-width="10"/>
+  </marker>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="svg_24"/>
+  <g id="svg_9"/>
+  <g id="svg_10"/>
+  <line fill="none" id="svg_13" marker-end="url(#se_marker_end_svg_13)" marker-start="url(#se_marker_start_svg_13)" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="244.999999" x2="5" y1="49" y2="51"/>
+  <path d="m88.369161,3.000009l73.261744,0l-36.630872,46.999997l36.630872,46.999997l-73.26182,0l36.630948,-46.999997l-36.630872,-46.999997z" fill="#00ff00" id="svg_1" stroke="#00ff00" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" transform="rotate(90 125 50)"/>
+  <line fill="none" id="svg_5" marker-end="url(#se_marker_end_svg_5)" stroke="#00ff00" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="125.5" x2="124.5" y1="47.765624" y2="8.765625"/>
+  <line fill="none" id="svg_6" stroke="#00ff00" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="64" x2="64" y1="48.765627" y2="1.765626"/>
+  <line fill="none" id="svg_7" stroke="#00ff00" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="62.000001" x2="127" y1="3.765625" y2="3.765625"/>
+ </g>
 </svg>

@@ -1,12 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="253px" height="72px" viewBox="0 0 253 72" enable-background="new 0 0 253 72" xml:space="preserve">  <image id="image0" width="253" height="72" x="0" y="0"
-    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAP0AAABIAgMAAABAXBupAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX/////AAAAAAD///+x
-fSgUAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAHdElNRQfkBQ4JAxfOEeb8AAAAkklEQVRY
-w+3UMQ6AIBBE0a05FUewYO7jUSwNpzRGC40VsyE7EKekeMWHYPavcVjGB4AJAF+GSQBXRxXAkUEG
-4DMIAWyGPsBOAY8M0UCqdeOAO0M8UJuG9yYAzgwawMpdI1BMAUj8S0R2PuXxgXIdxQP0n5hNB2jZ
-N8CwABdACGAD6AB0ABXAEUAE8ASQAHwB+gAHt1SiyRyKb1MAAAAldEVYdGRhdGU6Y3JlYXRlADIw
-MjAtMDUtMTRUMDk6MDM6MjMrMDA6MDB+7sCHAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA1LTE0
-VDA5OjAzOjIzKzAwOjAwD7N4OwAAAABJRU5ErkJggg==" />
+<?xml version="1.0"?>
+<svg width="220" height="80" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <marker id="se_marker_end_svg_13" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" id="svg_1" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="svg_24"/>
+  <g id="svg_9"/>
+  <g id="svg_10"/>
+  <path d="m147.812496,73.187498l37.500001,-66.375l37.500001,66.375l-75.000003,0z" fill="#ff0000" id="svg_11" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" transform="rotate(90 185.313 40)"/>
+  <line fill="none" id="svg_13" marker-end="url(#se_marker_end_svg_13)" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="153.749998" x2="5.75" y1="40.5" y2="39.5"/>
+ </g>
 </svg>
