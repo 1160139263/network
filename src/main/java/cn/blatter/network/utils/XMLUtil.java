@@ -170,7 +170,7 @@ public class XMLUtil {
         mxcell.addAttribute("parent","1");
 
 
-        double[] size = getSizeFromSVG("src/main/resources/static" + element.getPath());
+        double[] size = getSizeFromSVG(getPathRoot() + element.getPath());
         org.dom4j.Element mxgeo = mxcell.addElement("mxGeometry");
         mxgeo.addAttribute("x",node.getX().toString());
         mxgeo.addAttribute("y",node.getY().toString());
@@ -329,15 +329,24 @@ public class XMLUtil {
     }
 
     public double[] getSizeFromSVG(String url) throws DocumentException {
+        System.out.println(url);
+        File file = new File(url);
         SAXReader reader = new SAXReader();
-        Document document = reader.read(url);
+        Document document = reader.read(file);
         org.dom4j.Node svg = document.selectSingleNode("//svg");
         double[] result = new double[2];
         String s1 = svg.valueOf("@width");
         String s2 = svg.valueOf("@height");
-        result[0] = Double.parseDouble(s1.substring(0,s1.length()-2));
-        result[1] = Double.parseDouble(s2.substring(0,s2.length()-2));
+        result[0] = Double.parseDouble(s1);
+        result[1] = Double.parseDouble(s2);
         return result;
+    }
+
+    public String getPathRoot() {
+        String pathRoot = this.getClass().getResource("").getPath();
+        int index = pathRoot.indexOf("target/");
+        pathRoot = pathRoot.substring(1, index);
+        return pathRoot.substring(0,pathRoot.length()-1);
     }
 
 }
