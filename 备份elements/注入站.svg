@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<svg width="100" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" style="vector-effect: non-scaling-stroke;">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs style="vector-effect: non-scaling-stroke;">
+  <linearGradient id="svg_34" style="vector-effect: non-scaling-stroke;">
+   <stop offset="0" stop-color="#00ff00" style="vector-effect: non-scaling-stroke;"/>
+   <stop offset="0.701843" stop-color="#007f00" stop-opacity="0.996094" style="vector-effect: non-scaling-stroke;"/>
+  </linearGradient>
+  <marker id="se_marker_end_svg_44" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="mcircle" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="svg_24" style="vector-effect: non-scaling-stroke;"/>
+  <line fill="none" id="svg_37" stroke="url(#svg_34)" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="367.5" x2="366.5" y1="48.5" y2="48.5"/>
+  <line fill="none" id="svg_44" marker-end="url(#se_marker_end_svg_44)" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="50" x2="50" y1="54.500016" y2="193.500001"/>
+  <path d="m1.499998,2.5l48.500001,76.125002l48.500001,-76.125002l-97.000003,0z" fill="#00ff00" id="svg_41" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3"/>
+ </g>
+</svg>

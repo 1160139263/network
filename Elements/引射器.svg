@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<svg width="200" height="120" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <marker id="se_marker_start_svg_21" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" id="svg_1" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+  <marker id="se_marker_end_svg_21" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" id="svg_2" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+  <marker id="se_marker_end_svg_5" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="50" refY="50" se_type="mcircle" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" fill="#000000" r="30" stroke="#000000" stroke-width="10"/>
+  </marker>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <line fill="none" id="svg_5" marker-end="url(#se_marker_end_svg_5)" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="100" x2="100" y1="78.765625" y2="114.765625"/>
+  <line fill="none" id="svg_21" marker-end="url(#se_marker_end_svg_21)" marker-start="url(#se_marker_start_svg_21)" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" x1="6" x2="194.000003" y1="60" y2="60"/>
+  <g id="svg_24"/>
+  <g id="svg_9"/>
+  <g id="svg_10"/>
+  <g id="svg_12"/>
+  <g id="svg_4">
+   <path d="m52.374995,23.500008l76.200011,13.6875l0,45.624991l-76.200011,13.6875l0,-72.999991z" fill="#ff0000" id="svg_22" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-opacity="0" stroke-width="3"/>
+   <rect fill="#FF0000" height="50.469137" id="svg_3" stroke="#000000" stroke-width="0" width="19.722354" x="127.902654" y="34.765432"/>
+  </g>
+ </g>
+</svg>
