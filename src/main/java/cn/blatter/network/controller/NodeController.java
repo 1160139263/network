@@ -1,9 +1,7 @@
 package cn.blatter.network.controller;
 
 import cn.blatter.network.common.ServiceResponse;
-import cn.blatter.network.domain.Connection;
-import cn.blatter.network.domain.Element;
-import cn.blatter.network.domain.Node;
+import cn.blatter.network.domain.*;
 import cn.blatter.network.service.NodeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +28,8 @@ public class NodeController {
 
 	@RequestMapping(value = "/addNode", method = RequestMethod.POST)
 	public ServiceResponse addNode(@RequestBody Node node) {
-		List<Node> nodeList = nodeService.findAll(node.getProjectId());
-		return ServiceResponse.createBySuccess(nodeList);
+		nodeService.addNode(node);
+		return ServiceResponse.createBySuccess();
 	}
 
 	@RequestMapping(value = "/findNodeById", method = RequestMethod.POST)
@@ -48,7 +46,16 @@ public class NodeController {
 
 	@PostMapping(value = "/setNode")
 	public ServiceResponse setNode(@RequestBody Node node) {
-		nodeService.setNode(node.getId(),node.getName(),node.getPressure(),node.getLoads(),node.isPressureState(),node.isLoadState(),node.getElevation(),node.getX(),node.getY());
+		nodeService.setNode(node);
 		return ServiceResponse.createBySuccess();
+	}
+
+	@GetMapping(value = "/project/{id}/bases")
+	public ServiceResponse getPipes(@PathVariable Integer id) {
+		List<Base> bases = nodeService.findAllBase(id);
+		if (bases != null) {
+			return ServiceResponse.createBySuccess(bases);
+		}
+		return ServiceResponse.createByError();
 	}
 }

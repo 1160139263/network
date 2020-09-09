@@ -1,5 +1,6 @@
 package cn.blatter.network.mapper;
 
+import cn.blatter.network.domain.Base;
 import cn.blatter.network.domain.Node;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,12 +15,13 @@ import java.util.List;
 public interface NodeMapper {
 	List<Node> findAll(Integer id);
 	Node findById(Integer id);
-	void setNode(Integer id,Double pressure,Double loads,boolean pressure_state,boolean load_state);
-	void setBase(Integer id,String name,Double elevation,Double x,Double y);
+	void setNode(Node node);
+	void setBase(Node node);
 
-	void addNode(Integer id,Double pressure,Double loads,boolean pressure_state,boolean load_state);
-	void addBase(String name,Double elevation,Double x,Double y);
+	void addNode(Node node);
+	void addBase(Node node);
 
 	void deleteNode(Integer id);
 
+	List<Base> findAllBase(Integer id);
 }

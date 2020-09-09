@@ -57,7 +57,7 @@ public class SimulateServiceImpl implements SimulateService {
 	@Override
 	public Network simulate(Integer id) {
 		// 节点数据
-		List<Node> nodes = nodeMapper.queryByProject(id);
+		List<Node> nodes = nodeMapper.findAll(id);
 		// 管道数据
 		List<Pipe> pipes = pipeMapper.queryByProject(id);
 		// 模拟信息

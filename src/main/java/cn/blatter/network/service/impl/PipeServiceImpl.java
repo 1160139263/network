@@ -87,73 +87,75 @@ public class PipeServiceImpl implements PipeService {
 
 	@Override
 	public Integer insertPipe(Pipe pipe) {
-		// 插入前设置名称
-		if (pipe.getStartId() != null) {
-			Node node = nodeMapper.queryById(pipe.getStartId());
-			pipe.setStartName(node.getName());
-		}
-		if (pipe.getEndName() != null) {
-			Node node = nodeMapper.queryById(pipe.getEndId());
-			pipe.setEndName(node.getName());
-		}
-		if (pipe.getStartConnection() != null) {
-			Connection connection = connectionService.queryById(pipe.getStartConnection());
-			pipe.setStartConnectionName(connection.getName());
-		}
-		if (pipe.getEndConnection() != null) {
-			Connection connection = connectionService.queryById(pipe.getEndConnection());
-			pipe.setEndConnectionName(connection.getName());
-		}
-		try {
-			String path = "src/main/resources" + projectsService.queryOne(pipe.getProjectId()).getModel();
-			List<Element> elements = elementService.findAll();
-			List<Connection> connections = connectionService.findAll();
-			XMLUtil xmlUtil = new XMLUtil(elements, connections);
-			Node start = nodeMapper.queryById(pipe.getStartId());
-			Node end = nodeMapper.queryById(pipe.getEndId());
-			Connection s = connectionService.queryById(pipe.getStartConnection());
-			Connection t = connectionService.queryById(pipe.getEndConnection());
-			Pipe newer = xmlUtil.insertPipe(path, pipe, start.getModelId(), end.getModelId(), s, t);;
-			return pipeMapper.insertPipe(newer);
-		}catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
+//		// 插入前设置名称
+//		if (pipe.getStartId() != null) {
+//			Node node = nodeMapper.queryById(pipe.getStartId());
+//			pipe.setStartName(node.getName());
+//		}
+//		if (pipe.getEndName() != null) {
+//			Node node = nodeMapper.queryById(pipe.getEndId());
+//			pipe.setEndName(node.getName());
+//		}
+//		if (pipe.getStartConnection() != null) {
+//			Connection connection = connectionService.queryById(pipe.getStartConnection());
+//			pipe.setStartConnectionName(connection.getName());
+//		}
+//		if (pipe.getEndConnection() != null) {
+//			Connection connection = connectionService.queryById(pipe.getEndConnection());
+//			pipe.setEndConnectionName(connection.getName());
+//		}
+//		try {
+//			String path = "src/main/resources" + projectsService.queryOne(pipe.getProjectId()).getModel();
+//			List<Element> elements = elementService.findAll();
+//			List<Connection> connections = connectionService.findAll();
+//			XMLUtil xmlUtil = new XMLUtil(elements, connections);
+//			Node start = nodeMapper.queryById(pipe.getStartId());
+//			Node end = nodeMapper.queryById(pipe.getEndId());
+//			Connection s = connectionService.queryById(pipe.getStartConnection());
+//			Connection t = connectionService.queryById(pipe.getEndConnection());
+//			Pipe newer = xmlUtil.insertPipe(path, pipe, start.getModelId(), end.getModelId(), s, t);;
+//			return pipeMapper.insertPipe(newer);
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return 0;
+//		}
+		return 0;
 	}
 
 	@Override
 	public Integer updatePipe(Pipe pipe) {
-		// 插入前设置名称
-		if (pipe.getStartId() != null) {
-			Node node = nodeMapper.queryById(pipe.getStartId());
-			pipe.setStartName(node.getName());
-		}
-		if (pipe.getEndName() != null) {
-			Node node = nodeMapper.queryById(pipe.getEndId());
-			pipe.setEndName(node.getName());
-		}
-		if (pipe.getStartConnection() != null) {
-			Connection connection = connectionService.queryById(pipe.getStartConnection());
-			pipe.setStartConnectionName(connection.getName());
-		}
-		if (pipe.getEndConnection() != null) {
-			Connection connection = connectionService.queryById(pipe.getEndConnection());
-			pipe.setEndConnectionName(connection.getName());
-		}
-		try {
-			String path = "src/main/resources" + projectsService.queryOne(pipe.getProjectId()).getModel();
-			List<Element> elements = elementService.findAll();
-			List<Connection> connections = connectionService.findAll();
-			XMLUtil xmlUtil = new XMLUtil(elements, connections);
-			Node start = nodeMapper.queryById(pipe.getStartId());
-			Node end = nodeMapper.queryById(pipe.getEndId());
-			Connection s = connectionService.queryById(pipe.getStartConnection());
-			Connection t = connectionService.queryById(pipe.getEndConnection());
-			xmlUtil.updatePipe(path, pipe, start.getModelId(), end.getModelId(), s, t);
-			return pipeMapper.updateById(pipe);
-		}catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
+//		// 插入前设置名称
+//		if (pipe.getStartId() != null) {
+//			Node node = nodeMapper.queryById(pipe.getStartId());
+//			pipe.setStartName(node.getName());
+//		}
+//		if (pipe.getEndName() != null) {
+//			Node node = nodeMapper.queryById(pipe.getEndId());
+//			pipe.setEndName(node.getName());
+//		}
+//		if (pipe.getStartConnection() != null) {
+//			Connection connection = connectionService.queryById(pipe.getStartConnection());
+//			pipe.setStartConnectionName(connection.getName());
+//		}
+//		if (pipe.getEndConnection() != null) {
+//			Connection connection = connectionService.queryById(pipe.getEndConnection());
+//			pipe.setEndConnectionName(connection.getName());
+//		}
+//		try {
+//			String path = "src/main/resources" + projectsService.queryOne(pipe.getProjectId()).getModel();
+//			List<Element> elements = elementService.findAll();
+//			List<Connection> connections = connectionService.findAll();
+//			XMLUtil xmlUtil = new XMLUtil(elements, connections);
+//			Node start = nodeMapper.queryById(pipe.getStartId());
+//			Node end = nodeMapper.queryById(pipe.getEndId());
+//			Connection s = connectionService.queryById(pipe.getStartConnection());
+//			Connection t = connectionService.queryById(pipe.getEndConnection());
+//			xmlUtil.updatePipe(path, pipe, start.getModelId(), end.getModelId(), s, t);
+//			return pipeMapper.updateById(pipe);
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return 0;
+//		}
+		return 0;
 	}
 }

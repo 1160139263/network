@@ -30,21 +30,27 @@ public class NodeServiceImpl implements NodeService {
 	}
 
 	@Override
-	public void addNode(String name,Double pressure,Double loads,boolean pressure_state,boolean load_state,Double elevation,Double x,Double y){
-		nodeMapper.setBase(id,name,elevation,x,y);
-		nodeMapper.setNode(id,pressure,loads,pressure_state,load_state);
+	public void addNode(Node node){
+		nodeMapper.addBase(node);
+		nodeMapper.addNode(node);
 	}
 
 	@Override
-	public void setNode(Integer id,String name,Double pressure,Double loads,boolean pressure_state,boolean load_state,Double elevation,Double x,Double y){
-		nodeMapper.setBase(id,name,elevation,x,y);
-		nodeMapper.setNode(id,pressure,loads,pressure_state,load_state);
+	public void setNode(Node node){
+		nodeMapper.setBase(node);
+		nodeMapper.setNode(node);
 	}
 
 	@Override
 	public Node findById(Integer id){
 		Node nodeList = nodeMapper.findById(id);
 		return nodeList;
+	}
+
+	@Override
+	public List<Base> findAllBase(Integer id) {
+		List<Base> list = nodeMapper.findAllBase(id);
+		return list;
 	}
 
 }
