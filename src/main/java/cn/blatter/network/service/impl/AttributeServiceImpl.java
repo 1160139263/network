@@ -23,8 +23,8 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public Attribute findById(Integer element_id){
-        Attribute attributeList = attributeMapper.findById(element_id);
+    public List<Attribute> findById(Integer element_id){
+        List<Attribute> attributeList = attributeMapper.findById(element_id);
         return attributeList;
     }
 

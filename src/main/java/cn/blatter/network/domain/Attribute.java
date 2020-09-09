@@ -7,10 +7,8 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 public class Attribute {
+    private Integer id;
     private Integer element_id;
-    private Double pressure;
-    private Boolean pressure_state;
-    private Double loads;
-    private Boolean load_state;
-    private Double elevation;
+    private String attribute_name;
+    private String attribute_value;
 }
