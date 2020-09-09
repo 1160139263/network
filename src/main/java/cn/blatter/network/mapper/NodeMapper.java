@@ -12,17 +12,14 @@ import java.util.List;
  */
 @Mapper
 public interface NodeMapper {
-	List<Node> findAll();
+	List<Node> findAll(Integer id);
+	Node findById(Integer id);
+	void setNode(Integer id,Double pressure,Double loads,boolean pressure_state,boolean load_state);
+	void setBase(Integer id,String name,Double elevation,Double x,Double y);
 
-	Node queryById(Integer id);
+	void addNode(Integer id,Double pressure,Double loads,boolean pressure_state,boolean load_state);
+	void addBase(String name,Double elevation,Double x,Double y);
 
-	List<Node> queryByProject(Integer id);
+	void deleteNode(Integer id);
 
-	Integer deleteById(Integer id);
-
-	Integer insertNode(Node node);
-
-	Integer updateById(Node node);
-
-	List<Node> pageQuery(@Param("pageStart") Integer start, @Param("pageSize") Integer pageSize, @Param("pid") Integer pid);
 }

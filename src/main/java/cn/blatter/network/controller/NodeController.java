@@ -1,8 +1,9 @@
 package cn.blatter.network.controller;
 
 import cn.blatter.network.common.ServiceResponse;
+import cn.blatter.network.domain.Connection;
+import cn.blatter.network.domain.Element;
 import cn.blatter.network.domain.Node;
-import cn.blatter.network.domain.PageInfo;
 import cn.blatter.network.service.NodeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,82 +22,33 @@ public class NodeController {
 	@Autowired
 	private NodeService nodeService;
 
-	/**
-	 * 分页查询
-	 * @param pid
-	 * @param pageInfo
-	 * @return
-	 */
-	@RequestMapping(value = "/project/nodes/{pid}", method = RequestMethod.GET)
-	public ServiceResponse getNode(@PathVariable Integer pid, PageInfo pageInfo) {
-		List<Node> nodes = nodeService.pageQuery(pageInfo, pid);
-		if (nodes == null) {
-			return ServiceResponse.createByError();
-		}
-		return ServiceResponse.createBySuccess(nodes);
+	@RequestMapping(value = "/getNode", method = RequestMethod.POST)
+	public ServiceResponse list(@RequestBody Node node) {
+		List<Node> nodeList = nodeService.findAll(node.getProjectId());
+		return ServiceResponse.createBySuccess(nodeList);
 	}
 
-	@GetMapping(value = "/project/{pid}/nodes")
-	public ServiceResponse getAllNodes(@PathVariable Integer pid) {
-		List<Node> nodes = nodeService.queryByPid(pid);
-		if (nodes != null) {
-			return ServiceResponse.createBySuccess(nodes);
-		}
-		return ServiceResponse.createByError();
+	@RequestMapping(value = "/addNode", method = RequestMethod.POST)
+	public ServiceResponse addNode(@RequestBody Node node) {
+		List<Node> nodeList = nodeService.findAll(node.getProjectId());
+		return ServiceResponse.createBySuccess(nodeList);
 	}
 
-	/**
-	 * 根据节点id查询信息
-	 * @param id
-	 * @return
-	 */
-	@GetMapping(value = "/nodes/{id}")
-	public ServiceResponse getNodeInfo(@PathVariable Integer id) {
-		Node node = nodeService.queryNodeById(id);
-		if (node != null) {
-			return ServiceResponse.createBySuccess(node);
-		}
-		return ServiceResponse.createByError();
+	@RequestMapping(value = "/findNodeById", method = RequestMethod.POST)
+	public ServiceResponse findById(@RequestBody Node node) {
+		Node nodeList = nodeService.findById(node.getId());
+		return ServiceResponse.createBySuccess(nodeList);
 	}
 
-	/**
-	 * 根据工程id查询总数
-	 * @param pid
-	 * @return
-	 */
-	@RequestMapping(value = "/project/nodes/count/{pid}", method = RequestMethod.GET)
-	public ServiceResponse getCount(@PathVariable Integer pid) {
-		List<Node> nodes = nodeService.queryByPid(pid);
-		if (nodes == null) {
-			return ServiceResponse.createByError();
-		}
-		return ServiceResponse.createBySuccess(nodes.size());
+	@PostMapping(value = "/deleteNode")
+	public ServiceResponse deleteNode(@RequestBody Node node) {
+		nodeService.deleteNode(node.getId());
+		return ServiceResponse.createBySuccess();
 	}
 
-	@DeleteMapping("/nodes/{id}")
-	public ServiceResponse deleteNode(@PathVariable Integer id) {
-		Integer result = nodeService.deleteNode(id);
-		if (result == 1) {
-			return ServiceResponse.createBySuccess();
-		}
-		return ServiceResponse.createByError();
-	}
-
-	@PostMapping("/nodes")
-	public ServiceResponse insertNode(@RequestBody Node node) {
-		Integer result = nodeService.insertNode(node);
-		if (result == 1) {
-			return ServiceResponse.createBySuccess(node);
-		}
-		return ServiceResponse.createByError();
-	}
-
-	@PutMapping("/nodes")
-	public ServiceResponse alterNode(@RequestBody Node node) {
-		Integer result = nodeService.updateNode(node);
-		if (result == 1) {
-			return ServiceResponse.createBySuccess();
-		}
-		return ServiceResponse.createByError();
+	@PostMapping(value = "/setNode")
+	public ServiceResponse setNode(@RequestBody Node node) {
+		nodeService.setNode(node.getId(),node.getName(),node.getPressure(),node.getLoads(),node.isPressureState(),node.isLoadState(),node.getElevation(),node.getX(),node.getY());
+		return ServiceResponse.createBySuccess();
 	}
 }
