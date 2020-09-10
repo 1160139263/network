@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blatter.network.mapper.WellMapper">
+  <select id="findAll" resultType="Well">
+    SELECT *
+    FROM t_well,t_base
+    WHERE t_base.project_id=#{id} AND t_well.id=t_base.id
+  </select>
+  <delete id="deleteWell" parameterType="integer">
+    delete from t_base where id = #{id}
+  </delete>
+  <select id="getBaseById" resultType="Well">
+    SELECT *
+    FROM t_well,t_base
+    WHERE t_well.id=#{id} AND t_well.id=t_base.id
+  </select>
+  <select id="setWell" resultType="Well">
+    update t_well set flow_id=#{flowId} where id=#{id};
+  </select>
+  <select id="setBase" resultType="Well">
+    update t_base set elevation=#{elevation},name=#{name},x=#{x},y=#{y} where id=#{id};
+  </select>
+  <insert id="addBase" parameterType="Well" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into t_base
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="modelId != null">
+        model_id,
+      </if>
+      <if test="elementId != null">
+        element_id,
+      </if>
+      <if test="elementName != null">
+        element_name,
+      </if>
+      <if test="x != null">
+        x,
+      </if>
+      <if test="y != null">
+        y,
+      </if>
+      <if test="elevation != null">
+        elevation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="modelId != null">
+        #{modelId},
+      </if>
+      <if test="elementId != null">
+        #{elementId},
+      </if>
+      <if test="elementName != null">
+        #{elementName},
+      </if>
+      <if test="x != null">
+        #{x},
+      </if>
+      <if test="y != null">
+        #{y},
+      </if>
+      <if test="elevation != null">
+        #{elevation},
+      </if>
+    </trim>
+  </insert>
+  <insert id="addWell" parameterType="Well" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into t_well
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="flowId != null">
+        flow_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="flowId != null">
+        #{flowId},
+      </if>
+    </trim>
+  </insert>
+</mapper>
