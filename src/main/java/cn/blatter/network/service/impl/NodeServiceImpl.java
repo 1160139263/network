@@ -2,6 +2,7 @@ package cn.blatter.network.service.impl;
 
 import cn.blatter.network.domain.*;
 import cn.blatter.network.mapper.NodeMapper;
+import cn.blatter.network.mapper.PipeMapper;
 import cn.blatter.network.service.NodeService;
 import cn.blatter.network.utils.XMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class NodeServiceImpl implements NodeService {
 	@Autowired
 	private ProjectsServiceImpl projectsService;
 
+	@Autowired
+	private PipeMapper pipeMapper;
+
 	@Override
 	public List<Node> findAll(Integer id) {
 		List<Node> nodeList = nodeMapper.findAll(id);
@@ -40,7 +44,11 @@ public class NodeServiceImpl implements NodeService {
 			List<Element> elements = elementService.findAll();
 			List<Connection> connections = connectionService.findAll();
 			XMLUtil xmlUtil = new XMLUtil(elements, connections);
-			xmlUtil.deleteNode(path, node);
+			List<Pipe> pipeList = xmlUtil.deleteNode(path, node);
+			for (Pipe pipe : pipeList) {
+				Pipe temp = pipeMapper.queryByModelId(pipe);
+				pipeMapper.deleteById(temp.getId());
+			}
 			nodeMapper.deleteNode(id);
 		}catch (Exception e) {
 			e.printStackTrace();

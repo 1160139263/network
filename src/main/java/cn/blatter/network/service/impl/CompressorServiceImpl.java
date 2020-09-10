@@ -2,6 +2,7 @@ package cn.blatter.network.service.impl;
 
 import cn.blatter.network.domain.*;
 import cn.blatter.network.mapper.CompressorMapper;
+import cn.blatter.network.mapper.PipeMapper;
 import cn.blatter.network.service.CompressorService;
 import cn.blatter.network.utils.XMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class CompressorServiceImpl implements CompressorService {
     @Autowired
     private ProjectsServiceImpl projectsService;
 
+    @Autowired
+    private PipeMapper pipeMapper;
+
     @Override
     public List<Compressor> findAll(Integer id) {
         List<Compressor> compressorList = compressorMapper.findAll(id);
@@ -40,7 +44,11 @@ public class CompressorServiceImpl implements CompressorService {
             List<Element> elements = elementService.findAll();
             List<Connection> connections = connectionService.findAll();
             XMLUtil xmlUtil = new XMLUtil(elements, connections);
-            xmlUtil.deleteNode(path, compressor);
+            List<Pipe> pipeList = xmlUtil.deleteNode(path, compressor);
+            for (Pipe pipe : pipeList) {
+                Pipe temp = pipeMapper.queryByModelId(pipe);
+                pipeMapper.deleteById(temp.getId());
+            }
             compressorMapper.deleteCompressor(id);
         }catch (Exception e) {
             e.printStackTrace();

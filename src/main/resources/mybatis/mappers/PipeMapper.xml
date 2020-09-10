@@ -13,7 +13,11 @@
     from t_pipe
     where id = #{id}
   </select>
-
+  <select id="queryByModelId" parameterType="Pipe" resultType="Pipe">
+    select *
+    from t_pipe
+    where model_id = #{modelId} AND project_id = #{projectId}
+  </select>
   <select id="queryByProject" parameterType="integer" resultType="Pipe">
     select id, project_id, model_id, start_id, end_id, diameter, length, roughness, lambda, name, start_name, end_name,
            start_connection, end_connection, start_connection_name, end_connection_name

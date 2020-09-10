@@ -25,5 +25,7 @@ public interface PipeMapper {
 
 	Integer deleteById(Integer id);
 
+	Pipe queryByModelId(Pipe pipe);
+
 	List<Pipe> pageQuery(@Param("pageStart") Integer start, @Param("pageSize") Integer pageSize, @Param("pid") Integer pid);
 }

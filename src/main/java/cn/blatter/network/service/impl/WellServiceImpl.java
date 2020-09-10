@@ -1,6 +1,7 @@
 package cn.blatter.network.service.impl;
 
 import cn.blatter.network.domain.*;
+import cn.blatter.network.mapper.PipeMapper;
 import cn.blatter.network.mapper.WellMapper;
 import cn.blatter.network.service.WellService;
 import cn.blatter.network.utils.XMLUtil;
@@ -26,6 +27,9 @@ public class WellServiceImpl implements WellService {
 	@Autowired
 	private ProjectsServiceImpl projectsService;
 
+	@Autowired
+	private PipeMapper pipeMapper;
+
 	@Override
 	public List<Well> findAll(Integer id) {
 		List<Well> wellList = wellMapper.findAll(id);
@@ -40,7 +44,11 @@ public class WellServiceImpl implements WellService {
 			List<Element> elements = elementService.findAll();
 			List<Connection> connections = connectionService.findAll();
 			XMLUtil xmlUtil = new XMLUtil(elements, connections);
-			xmlUtil.deleteNode(path, well);
+			List<Pipe> pipeList = xmlUtil.deleteNode(path, well);
+			for (Pipe pipe : pipeList) {
+				Pipe temp = pipeMapper.queryByModelId(pipe);
+				pipeMapper.deleteById(temp.getId());
+			}
 			wellMapper.deleteWell(id);
 		}catch (Exception e) {
 			e.printStackTrace();

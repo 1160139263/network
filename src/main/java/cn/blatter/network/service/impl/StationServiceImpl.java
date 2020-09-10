@@ -1,6 +1,7 @@
 package cn.blatter.network.service.impl;
 
 import cn.blatter.network.domain.*;
+import cn.blatter.network.mapper.PipeMapper;
 import cn.blatter.network.mapper.StationMapper;
 import cn.blatter.network.service.StationService;
 import cn.blatter.network.utils.XMLUtil;
@@ -26,6 +27,9 @@ public class StationServiceImpl implements StationService {
     @Autowired
     private ProjectsServiceImpl projectsService;
 
+    @Autowired
+    private PipeMapper pipeMapper;
+
     @Override
     public List<Station> findAll(Integer id) {
         List<Station> stationList = stationMapper.findAll(id);
@@ -40,7 +44,11 @@ public class StationServiceImpl implements StationService {
             List<Element> elements = elementService.findAll();
             List<Connection> connections = connectionService.findAll();
             XMLUtil xmlUtil = new XMLUtil(elements, connections);
-            xmlUtil.deleteNode(path, station);
+            List<Pipe> pipeList = xmlUtil.deleteNode(path, station);
+            for (Pipe pipe : pipeList) {
+                Pipe temp = pipeMapper.queryByModelId(pipe);
+                pipeMapper.deleteById(temp.getId());
+            }
             stationMapper.deleteStation(id);
         }catch (Exception e) {
             e.printStackTrace();

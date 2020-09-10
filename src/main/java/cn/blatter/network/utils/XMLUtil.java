@@ -338,16 +338,37 @@ public class XMLUtil {
     }
 
     // 删除node
-    public void deleteNode(String url, Base node) throws DocumentException, IOException {
+    public List<Pipe> deleteNode(String url, Base node) throws DocumentException, IOException {
+        List<Pipe> pipeList = new ArrayList<>();
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
         org.dom4j.Element root = (org.dom4j.Element) document.selectSingleNode("/mxGraphModel/root");
         org.dom4j.Node raw = document.selectSingleNode("//*[@id=" + node.getModelId() + "]");
         root.remove(raw);
+        List<org.dom4j.Node> sourcePipes = document.selectNodes("//mxCell[@source=" + node.getModelId() + "]/parent::*");
+        List<org.dom4j.Node> targetPipes = document.selectNodes("//mxCell[@target=" + node.getModelId() + "]/parent::*");
+
+        for(org.dom4j.Node pipe : sourcePipes) {
+            Pipe pipe1 = new Pipe();
+            pipe1.setModelId(Integer.parseInt(pipe.valueOf("@id")));
+            pipe1.setProjectId(node.getProjectId());
+            pipeList.add(pipe1);
+            root.remove(pipe);
+        }
+        for(org.dom4j.Node pipe : targetPipes) {
+            Pipe pipe1 = new Pipe();
+            pipe1.setModelId(Integer.parseInt(pipe.valueOf("@id")));
+            pipe1.setProjectId(node.getProjectId());
+            pipeList.add(pipe1);
+            root.remove(pipe);
+        }
 
         FileWriter out = new FileWriter(url);
         document.write(out);
         out.close();
+        System.out.println("1");
+        System.out.println(pipeList);
+        return pipeList;
     }
 
     // 删除pipe
