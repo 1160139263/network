@@ -62,37 +62,37 @@ public class XMLUtil {
                     baseList.add(t2);
                     break;
 
-//                case 3:
-//                    Ejector t3 = new Ejector();
-//                    t3 = autoFilling(t3, base);
-//                    t3.setExpandRate(Double.parseDouble(n.valueOf("@膨胀比")));
-//                    t3.setCompressRate(Double.parseDouble(n.valueOf("@压缩比")));
-//                    t3.setEjectorRate(Double.parseDouble(n.valueOf("@引射率")));
-//                    t3.setEfficiency(Double.parseDouble(n.valueOf("@等熵效率")));
-////                    System.out.println(t3.toString());
-//                    baseList.add(t3);
-//                    break;
-//
-//                case 4:
-//                    Compressor t4 = new Compressor();
-//                    t4 = autoFilling(t4, base);
-//                    t4.setMainPressure(Double.parseDouble(n.valueOf("@干线压力")));
-//                    t4.setCalorificValue(Double.parseDouble(n.valueOf("@天然气热值")));
-//                    t4.setEngineEfficiency(Double.parseDouble(n.valueOf("@原动机效率")));
-//                    t4.setCompressorEfficiency(Double.parseDouble(n.valueOf("@压缩机效率")));
-////                    System.out.println(t4.toString());
-//                    baseList.add(t4);
-//                    break;
-//
-//                case 5:
-//                    Station t5 = new Station();
-//                    t5 = autoFilling(t5, base);
-//                    t5.setInletPressure(Double.parseDouble(n.valueOf("@进场压力")));
-//                    t5.setOutletPressure(Double.parseDouble(n.valueOf("@出场压力")));
-//                    t5.setProduction(Double.parseDouble(n.valueOf("@产率")));
-////                    System.out.println(t5.toString());
-//                    baseList.add(t5);
-//                    break;
+                case 3:
+                    Ejector t3 = new Ejector();
+                    t3 = autoFilling(t3, base);
+                    t3.setExpandRate(Double.parseDouble(n.valueOf("@膨胀比")));
+                    t3.setCompressRate(Double.parseDouble(n.valueOf("@压缩比")));
+                    t3.setEjectorRate(Double.parseDouble(n.valueOf("@引射率")));
+                    t3.setEfficiency(Double.parseDouble(n.valueOf("@等熵效率")));
+//                    System.out.println(t3.toString());
+                    baseList.add(t3);
+                    break;
+
+                case 4:
+                    Compressor t4 = new Compressor();
+                    t4 = autoFilling(t4, base);
+                    t4.setMainPressure(Double.parseDouble(n.valueOf("@干线压力")));
+                    t4.setCalorificValue(Double.parseDouble(n.valueOf("@天然气热值")));
+                    t4.setEngineEfficiency(Double.parseDouble(n.valueOf("@原动机效率")));
+                    t4.setCompressorEfficiency(Double.parseDouble(n.valueOf("@压缩机效率")));
+//                    System.out.println(t4.toString());
+                    baseList.add(t4);
+                    break;
+
+                case 5:
+                    Station t5 = new Station();
+                    t5 = autoFilling(t5, base);
+                    t5.setInletPressure(Double.parseDouble(n.valueOf("@进场压力")));
+                    t5.setOutletPressure(Double.parseDouble(n.valueOf("@出场压力")));
+                    t5.setProduction(Double.parseDouble(n.valueOf("@产率")));
+//                    System.out.println(t5.toString());
+                    baseList.add(t5);
+                    break;
             }
         }
 

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blatter.network.mapper.CompressorMapper">
+    <select id="findAll" resultType="Compressor">
+        SELECT *
+        FROM t_compressor,t_base
+        WHERE t_base.project_id=#{id} AND t_compressor.id=t_base.id
+    </select>
+    <delete id="deleteCompressor" parameterType="integer">
+        delete from t_base where id = #{id}
+    </delete>
+    <select id="getBaseById" resultType="Compressor">
+        SELECT *
+        FROM t_compressor,t_base
+        WHERE t_compressor.id=#{id} AND t_compressor.id=t_base.id
+    </select>
+    <select id="setCompressor" resultType="Compressor">
+        update t_compressor set main_pressure=#{mainPressure},calorific_value=#{calorificValue},engine_efficiency=#{engineEfficiency},compressor_efficiency=#{compressorEfficiency} where id=#{id};
+    </select>
+    <select id="setBase" resultType="Compressor">
+        update t_base set elevation=#{elevation},name=#{name},x=#{x},y=#{y} where id=#{id};
+    </select>
+    <insert id="addBase" parameterType="Compressor" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="modelId != null">
+                model_id,
+            </if>
+            <if test="elementId != null">
+                element_id,
+            </if>
+            <if test="elementName != null">
+                element_name,
+            </if>
+            <if test="x != null">
+                x,
+            </if>
+            <if test="y != null">
+                y,
+            </if>
+            <if test="elevation != null">
+                elevation,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                #{projectId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="modelId != null">
+                #{modelId},
+            </if>
+            <if test="elementId != null">
+                #{elementId},
+            </if>
+            <if test="elementName != null">
+                #{elementName},
+            </if>
+            <if test="x != null">
+                #{x},
+            </if>
+            <if test="y != null">
+                #{y},
+            </if>
+            <if test="elevation != null">
+                #{elevation},
+            </if>
+        </trim>
+    </insert>
+    <insert id="addCompressor" parameterType="Compressor" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_compressor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="mainPressure != null">
+                main_pressure,
+            </if>
+            <if test="calorificValue != null">
+                calorific_value,
+            </if>
+            <if test="compressorEfficiency != null">
+                compressor_efficiency,
+            </if>
+            <if test="engineEfficiency != null">
+                engine_efficiency,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="mainPressure != null">
+                #{mainPressure},
+            </if>
+            <if test="calorificValue != null">
+                #{calorificValue},
+            </if>
+            <if test="compressorEfficiency != null">
+                #{compressorEfficiency},
+            </if>
+            <if test="engineEfficiency != null">
+                #{engineEfficiency},
+            </if>
+        </trim>
+    </insert>
+</mapper>

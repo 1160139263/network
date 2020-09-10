@@ -44,6 +44,15 @@ public class ProjectsServiceImpl implements ProjectsService {
 	@Autowired
 	private WellMapper wellMapper;
 
+	@Autowired
+	private CompressorMapper compressorMapper;
+
+	@Autowired
+	private StationMapper stationMapper;
+
+	@Autowired
+	private EjectorMapper ejectorMapper;
+
 	static String path = "src/main/resources";
 
 	/**
@@ -118,15 +127,18 @@ public class ProjectsServiceImpl implements ProjectsService {
 						break;
 
 					case 3:
-
+						ejectorMapper.addBase((Ejector)base);
+						ejectorMapper.addEjector((Ejector)base);
 						break;
 
 					case 4:
-
+						compressorMapper.addBase((Compressor)base);
+						compressorMapper.addCompressor((Compressor)base);
 						break;
 
 					case 5:
-
+						stationMapper.addBase((Station)base);
+						stationMapper.addStation((Station)base);
 						break;
 				}
 			}
@@ -181,15 +193,18 @@ public class ProjectsServiceImpl implements ProjectsService {
 						break;
 
 					case 3:
-
+						ejectorMapper.addBase((Ejector)base);
+						ejectorMapper.addEjector((Ejector)base);
 						break;
 
 					case 4:
-
+						compressorMapper.addBase((Compressor)base);
+						compressorMapper.addCompressor((Compressor)base);
 						break;
 
 					case 5:
-
+						stationMapper.addBase((Station)base);
+						stationMapper.addStation((Station)base);
 						break;
 				}
 			}

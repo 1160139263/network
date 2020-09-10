@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blatter.network.mapper.EjectorMapper">
+    <select id="findAll" resultType="Ejector">
+        SELECT *
+        FROM t_ejector,t_base
+        WHERE t_base.project_id=#{id} AND t_ejector.id=t_base.id
+    </select>
+    <delete id="deleteEjector" parameterType="integer">
+        delete from t_base where id = #{id}
+    </delete>
+    <select id="getBaseById" resultType="Ejector">
+        SELECT *
+        FROM t_ejector,t_base
+        WHERE t_ejector.id=#{id} AND t_ejector.id=t_base.id
+    </select>
+    <select id="setEjector" resultType="Ejector">
+        update t_ejector set expand_rate=#{expandRate},compress_rate=#{compressRate},ejector_rate=#{ejectorRate},efficiency=#{efficiency} where id=#{id};
+    </select>
+    <select id="setBase" resultType="Ejector">
+        update t_base set elevation=#{elevation},name=#{name},x=#{x},y=#{y} where id=#{id};
+    </select>
+    <insert id="addBase" parameterType="Ejector" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="modelId != null">
+                model_id,
+            </if>
+            <if test="elementId != null">
+                element_id,
+            </if>
+            <if test="elementName != null">
+                element_name,
+            </if>
+            <if test="x != null">
+                x,
+            </if>
+            <if test="y != null">
+                y,
+            </if>
+            <if test="elevation != null">
+                elevation,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                #{projectId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="modelId != null">
+                #{modelId},
+            </if>
+            <if test="elementId != null">
+                #{elementId},
+            </if>
+            <if test="elementName != null">
+                #{elementName},
+            </if>
+            <if test="x != null">
+                #{x},
+            </if>
+            <if test="y != null">
+                #{y},
+            </if>
+            <if test="elevation != null">
+                #{elevation},
+            </if>
+        </trim>
+    </insert>
+    <insert id="addEjector" parameterType="Ejector" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_ejector
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="expandRate != null">
+                expand_rate,
+            </if>
+            <if test="compressRate != null">
+                compress_rate,
+            </if>
+            <if test="ejectorRate != null">
+                ejector_rate,
+            </if>
+            <if test="efficiency != null">
+                efficiency,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="expandRate != null">
+                #{expandRate},
+            </if>
+            <if test="compressRate != null">
+                #{compressRate},
+            </if>
+            <if test="ejectorRate != null">
+                #{ejectorRate},
+            </if>
+            <if test="efficiency != null">
+                #{efficiency},
+            </if>
+        </trim>
+    </insert>
+</mapper>

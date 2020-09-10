@@ -24,6 +24,9 @@
         <mapper resource="mybatis/mappers/AttributeMapper.xml"/>
         <mapper resource="mybatis/mappers/ConnectionMapper.xml"/>
         <mapper resource="mybatis/mappers/WellMapper.xml"/>
+        <mapper resource="mybatis/mappers/CompressorMapper.xml"/>
+        <mapper resource="mybatis/mappers/EjectorMapper.xml"/>
+        <mapper resource="mybatis/mappers/StationMapper.xml"/>
     </mappers>
 
 </configuration>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blatter.network.mapper.StationMapper">
+    <select id="findAll" resultType="Station">
+        SELECT *
+        FROM t_station,t_base
+        WHERE t_base.project_id=#{id} AND t_station.id=t_base.id
+    </select>
+    <delete id="deleteStation" parameterType="integer">
+        delete from t_base where id = #{id}
+    </delete>
+    <select id="getBaseById" resultType="Station">
+        SELECT *
+        FROM t_station,t_base
+        WHERE t_station.id=#{id} AND t_station.id=t_base.id
+    </select>
+    <select id="setStation" resultType="Station">
+        update t_station set inlet_pressure=#{inletPressure},outlet_pressure=#{outletPressure},production=#{production} where id=#{id};
+    </select>
+    <select id="setBase" resultType="Station">
+        update t_base set elevation=#{elevation},name=#{name},x=#{x},y=#{y} where id=#{id};
+    </select>
+    <insert id="addBase" parameterType="Station" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="modelId != null">
+                model_id,
+            </if>
+            <if test="elementId != null">
+                element_id,
+            </if>
+            <if test="elementName != null">
+                element_name,
+            </if>
+            <if test="x != null">
+                x,
+            </if>
+            <if test="y != null">
+                y,
+            </if>
+            <if test="elevation != null">
+                elevation,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                #{projectId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="modelId != null">
+                #{modelId},
+            </if>
+            <if test="elementId != null">
+                #{elementId},
+            </if>
+            <if test="elementName != null">
+                #{elementName},
+            </if>
+            <if test="x != null">
+                #{x},
+            </if>
+            <if test="y != null">
+                #{y},
+            </if>
+            <if test="elevation != null">
+                #{elevation},
+            </if>
+        </trim>
+    </insert>
+    <insert id="addStation" parameterType="Station" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_station
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="inletPressure != null">
+                inlet_pressure,
+            </if>
+            <if test="outletPressure != null">
+                outlet_pressure,
+            </if>
+            <if test="production != null">
+                production,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="inletPressure != null">
+                #{inletPressure},
+            </if>
+            <if test="outletPressure != null">
+                #{outletPressure},
+            </if>
+            <if test="production != null">
+                #{production},
+            </if>
+        </trim>
+    </insert>
+</mapper>
