@@ -1,10 +1,8 @@
 package cn.blatter.network.service.impl;
 
 import cn.blatter.network.domain.*;
-import cn.blatter.network.mapper.ElementMapper;
 import cn.blatter.network.mapper.NodeMapper;
 import cn.blatter.network.service.NodeService;
-import cn.blatter.network.utils.XMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +41,7 @@ public class NodeServiceImpl implements NodeService {
 
 	@Override
 	public Node findById(Integer id){
-		Node nodeList = nodeMapper.findById(id);
+		Node nodeList = nodeMapper.getBaseById(id);
 		return nodeList;
 	}
 

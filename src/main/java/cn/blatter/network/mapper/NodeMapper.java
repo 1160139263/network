@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface NodeMapper {
 	List<Node> findAll(Integer id);
-	Node findById(Integer id);
+	Node getBaseById(Integer id);
 	void setNode(Node node);
 	void setBase(Node node);
 
@@ -24,4 +24,5 @@ public interface NodeMapper {
 	void deleteNode(Integer id);
 
 	List<Base> findAllBase(Integer id);
+	Base queryById(Integer id);
 }

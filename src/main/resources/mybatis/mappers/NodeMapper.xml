@@ -22,6 +22,11 @@
   <select id="setNode" resultType="Node">
     update t_node set pressure=#{pressure},pressure_state=#{pressureState},loads=#{loads},load_state=#{loadState} where id=#{id};
   </select>
+  <select id="queryById" resultType="Base">
+    SELECT *
+    FROM t_base
+    WHERE t_base.id=#{id}
+  </select>
   <select id="setBase" resultType="Node">
     update t_base set elevation=#{elevation},name=#{name},x=#{x},y=#{y} where id=#{id};
   </select>
