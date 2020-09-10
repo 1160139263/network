@@ -17,7 +17,7 @@ import java.util.List;
 public class XMLUtil {
     private final List<Element> elementList;
     private final List<Connection> connectionList;
-    private List<Node> nodeList;
+    private List<Base> baseList;
 
     public XMLUtil(List<Element> elementList,List<Connection> connectionList) {
         this.elementList = elementList;
@@ -25,87 +25,87 @@ public class XMLUtil {
     }
 
     // 分析nodes返回生成
-    public List<Node> generateNodes(String url, Integer pid) throws DocumentException {
-        List<Node> nodeList = new ArrayList<>();
+    public List<Base> generateNodes(String url, Integer pid) throws DocumentException {
+        List<Base> baseList = new ArrayList<>();
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
         List<org.dom4j.Node> vertexList = document.selectNodes("//mxCell[@vertex='1']/parent::*");
         for (org.dom4j.Node n : vertexList) {
 //            System.out.println(n.asXML());
-            Node node = new Node();
-            node.setElementName(n.getName());
-            node.setElementId(getElementIdByName(n.getName()));
-            node.setModelId(Integer.parseInt(n.valueOf("@id")));
-            node.setName(n.valueOf("@名称"));
-            node.setProjectId(pid);
-            node.setElevation(Double.parseDouble(n.valueOf("@海拔")));
-            node.setX(Double.parseDouble(n.selectSingleNode("./mxCell/mxGeometry").valueOf("@x")));
-            node.setY(Double.parseDouble(n.selectSingleNode("./mxCell/mxGeometry").valueOf("@y")));
+            Base base = new Base();
+            base.setElementName(n.getName());
+            base.setElementId(getElementIdByName(n.getName()));
+            base.setModelId(Integer.parseInt(n.valueOf("@id")));
+            base.setName(n.valueOf("@名称"));
+            base.setProjectId(pid);
+            base.setElevation(Double.parseDouble(n.valueOf("@海拔")));
+            base.setX(Double.parseDouble(n.selectSingleNode("./mxCell/mxGeometry").valueOf("@x")));
+            base.setY(Double.parseDouble(n.selectSingleNode("./mxCell/mxGeometry").valueOf("@y")));
 
-            switch (node.getElementId()) {
+            switch (base.getElementId()) {
                 case 1:
                     Node t1 = new Node();
-                    t1 = autoFilling(t1, node);
+                    t1 = autoFilling(t1, base);
                     t1.setPressure(Double.parseDouble(n.valueOf("@压力")));
                     t1.setLoads(Double.parseDouble(n.valueOf("@载荷")));
                     t1.setPressureState(Boolean.parseBoolean(n.valueOf("@压力已知")));
                     t1.setLoadState(Boolean.parseBoolean(n.valueOf("@载荷已知")));
                     System.out.println(t1.toString());
-                    nodeList.add(t1);
+                    baseList.add(t1);
                     break;
 
 //                case 2:
 //                    Well t2 = new Well();
-//                    t2 = autoFilling(t2, node);
+//                    t2 = autoFilling(t2, base);
 //                    t2.setFlowId(Integer.parseInt(n.valueOf("@流ID")));
 //                    System.out.println(t2.toString());
-//                    nodeList.add(t2);
+//                    baseList.add(t2);
 //                    break;
 //
 //                case 3:
 //                    Ejector t3 = new Ejector();
-//                    t3 = autoFilling(t3, node);
+//                    t3 = autoFilling(t3, base);
 //                    t3.setExpandRate(Double.parseDouble(n.valueOf("@膨胀比")));
 //                    t3.setCompressRate(Double.parseDouble(n.valueOf("@压缩比")));
 //                    t3.setEjectorRate(Double.parseDouble(n.valueOf("@引射率")));
 //                    t3.setEfficiency(Double.parseDouble(n.valueOf("@等熵效率")));
 //                    System.out.println(t3.toString());
-//                    nodeList.add(t3);
+//                    baseList.add(t3);
 //                    break;
 //
 //                case 4:
 //                    Compressor t4 = new Compressor();
-//                    t4 = autoFilling(t4, node);
+//                    t4 = autoFilling(t4, base);
 //                    t4.setMainPressure(Double.parseDouble(n.valueOf("@干线压力")));
 //                    t4.setCalorificValue(Double.parseDouble(n.valueOf("@天然气热值")));
 //                    t4.setEngineEfficiency(Double.parseDouble(n.valueOf("@原动机效率")));
 //                    t4.setCompressorEfficiency(Double.parseDouble(n.valueOf("@压缩机效率")));
 //                    System.out.println(t4.toString());
-//                    nodeList.add(t4);
+//                    baseList.add(t4);
 //                    break;
 //
 //                case 5:
 //                    Station t5 = new Station();
-//                    t5 = autoFilling(t5, node);
+//                    t5 = autoFilling(t5, base);
 //                    t5.setInletPressure(Double.parseDouble(n.valueOf("@进场压力")));
 //                    t5.setOutletPressure(Double.parseDouble(n.valueOf("@出场压力")));
 //                    t5.setProduction(Double.parseDouble(n.valueOf("@产率")));
 //                    System.out.println(t5.toString());
-//                    nodeList.add(t5);
+//                    baseList.add(t5);
 //                    break;
             }
         }
 
-        return nodeList;
+        return baseList;
     }
 
     // 分析pipes返回生成
-    public List<Pipe> generatePipes(String url, Integer pid, List<Node> nodeList) throws DocumentException {
+    public List<Pipe> generatePipes(String url, Integer pid, List<Base> baseList) throws DocumentException {
         List<Pipe> pipeList = new ArrayList<>();
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
         List<org.dom4j.Node> edgeList = document.selectNodes("//mxCell[@edge='1']/parent::*");
-        this.nodeList = nodeList;
+        this.baseList = baseList;
         for (org.dom4j.Node e : edgeList) {
 //            System.out.println(n.asXML());
             Pipe pipe = new Pipe();
@@ -120,8 +120,8 @@ public class XMLUtil {
             int target = Integer.parseInt(e.selectSingleNode("./mxCell").valueOf("@target"));
             String sourceName = document.selectSingleNode("//*[@id=" + source + "]").valueOf("@名称");
             String targetName = document.selectSingleNode("//*[@id=" + target + "]").valueOf("@名称");
-            cn.blatter.network.domain.Node s = getNodeByName(sourceName);
-            cn.blatter.network.domain.Node t = getNodeByName(targetName);
+            Base s = getBaseByName(sourceName);
+            Base t = getBaseByName(targetName);
             pipe.setStartId(s.getId());
             pipe.setEndId(t.getId());
             pipe.setStartName(sourceName);
@@ -142,69 +142,21 @@ public class XMLUtil {
     }
 
     // 修改node
-    public <T extends Node> void updateNode(String url, T node)
+    public <T extends Base> void updateNode(String url, T base)
             throws DocumentException, IOException, NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
-        org.dom4j.Element raw = (org.dom4j.Element) document.selectSingleNode("//*[@id=" + node.getModelId() + "]");
-        raw.setName(node.getElementName());
-        raw.addAttribute("海拔",node.getElevation().toString());
-        raw.addAttribute("名称",node.getName());
+        org.dom4j.Element raw = (org.dom4j.Element) document.selectSingleNode("//*[@id=" + base.getModelId() + "]");
+        raw.setName(base.getElementName());
+        raw.addAttribute("海拔",base.getElevation().toString());
+        raw.addAttribute("名称",base.getName());
 
-        switch (node.getElementId()) {
-            case 1:
-                Method getPressure = node.getClass().getDeclaredMethod("getPressure");
-                raw.addAttribute("压力", getPressure.invoke(node).toString());
-                Method getLoads = node.getClass().getDeclaredMethod("getLoads");
-                raw.addAttribute("载荷", getLoads.invoke(node).toString());
-                Method isPressureState = node.getClass().getDeclaredMethod("isPressureState");
-                raw.addAttribute("压力已知", String.valueOf(isPressureState.invoke(node)));
-                Method isLoadState = node.getClass().getDeclaredMethod("isLoadState");
-                raw.addAttribute("载荷已知", String.valueOf(isLoadState.invoke(node)));
-                break;
-
-            case 2:
-                Method getFlowId = node.getClass().getDeclaredMethod("getFlowId");
-                raw.addAttribute("流ID", getFlowId.invoke(node).toString());
-                break;
-
-            case 3:
-                Method getExpandRate = node.getClass().getDeclaredMethod("getExpandRate");
-                raw.addAttribute("膨胀比", getExpandRate.invoke(node).toString());
-                Method getCompressRate = node.getClass().getDeclaredMethod("getCompressRate");
-                raw.addAttribute("压缩比", getCompressRate.invoke(node).toString());
-                Method getEjectorRate = node.getClass().getDeclaredMethod("getEjectorRate");
-                raw.addAttribute("引射率", getEjectorRate.invoke(node).toString());
-                Method getEfficiency = node.getClass().getDeclaredMethod("getEfficiency");
-                raw.addAttribute("等熵效率", getEfficiency.invoke(node).toString());
-                break;
-
-            case 4:
-                Method getMainPressure = node.getClass().getDeclaredMethod("getMainPressure");
-                raw.addAttribute("干线压力", getMainPressure.invoke(node).toString());
-                Method getCalorificValue = node.getClass().getDeclaredMethod("getCalorificValue");
-                raw.addAttribute("天然气热值", getCalorificValue.invoke(node).toString());
-                Method getEngineEfficiency = node.getClass().getDeclaredMethod("getEngineEfficiency");
-                raw.addAttribute("原动机效率", getEngineEfficiency.invoke(node).toString());
-                Method getCompressorEfficiency = node.getClass().getDeclaredMethod("getCompressorEfficiency");
-                raw.addAttribute("压缩机效率", getCompressorEfficiency.invoke(node).toString());
-                break;
-
-            case 5:
-                Method getInletPressure = node.getClass().getDeclaredMethod("getInletPressure");
-                raw.addAttribute("进场压力", getInletPressure.invoke(node).toString());
-                Method getOutletPressure = node.getClass().getDeclaredMethod("getOutletPressure");
-                raw.addAttribute("出场压力", getOutletPressure.invoke(node).toString());
-                Method getProduction = node.getClass().getDeclaredMethod("getProduction");
-                raw.addAttribute("产率", getProduction.invoke(node).toString());
-                break;
-
-        }
+        raw = fillCell(base, raw);
 
         org.dom4j.Element geo = (org.dom4j.Element) raw.selectSingleNode("./mxCell/mxGeometry");
-        geo.addAttribute("x",node.getX().toString());
-        geo.addAttribute("y",node.getY().toString());
+        geo.addAttribute("x",base.getX().toString());
+        geo.addAttribute("y",base.getY().toString());
 
         FileWriter out = new FileWriter(url);
         document.write(out);
@@ -235,7 +187,7 @@ public class XMLUtil {
     }
 
     // 新增node
-    public <T extends Node> T insertNode(String url, T node)
+    public <T extends Base> T insertNode(String url, T base)
             throws DocumentException, IOException, NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
         SAXReader reader = new SAXReader();
@@ -248,64 +200,16 @@ public class XMLUtil {
             maxId = Math.max(temp, maxId);
         }
         maxId++;
-        node.setModelId(maxId);
-        org.dom4j.Element cell = root.addElement(node.getElementName());
-        cell.addAttribute("名称",node.getName());
-        cell.addAttribute("海拔",node.getElevation().toString());
+        base.setModelId(maxId);
+        org.dom4j.Element cell = root.addElement(base.getElementName());
+        cell.addAttribute("名称",base.getName());
+        cell.addAttribute("海拔",base.getElevation().toString());
 
-        switch (node.getElementId()) {
-            case 1:
-                Method getPressure = node.getClass().getDeclaredMethod("getPressure");
-                cell.addAttribute("压力", getPressure.invoke(node).toString());
-                Method getLoads = node.getClass().getDeclaredMethod("getLoads");
-                cell.addAttribute("载荷", getLoads.invoke(node).toString());
-                Method isPressureState = node.getClass().getDeclaredMethod("isPressureState");
-                cell.addAttribute("压力已知", String.valueOf(isPressureState.invoke(node)));
-                Method isLoadState = node.getClass().getDeclaredMethod("isLoadState");
-                cell.addAttribute("载荷已知", String.valueOf(isLoadState.invoke(node)));
-                break;
-
-            case 2:
-                Method getFlowId = node.getClass().getDeclaredMethod("getFlowId");
-                cell.addAttribute("流ID", getFlowId.invoke(node).toString());
-                break;
-
-            case 3:
-                Method getExpandRate = node.getClass().getDeclaredMethod("getExpandRate");
-                cell.addAttribute("膨胀比", getExpandRate.invoke(node).toString());
-                Method getCompressRate = node.getClass().getDeclaredMethod("getCompressRate");
-                cell.addAttribute("压缩比", getCompressRate.invoke(node).toString());
-                Method getEjectorRate = node.getClass().getDeclaredMethod("getEjectorRate");
-                cell.addAttribute("引射率", getEjectorRate.invoke(node).toString());
-                Method getEfficiency = node.getClass().getDeclaredMethod("getEfficiency");
-                cell.addAttribute("等熵效率", getEfficiency.invoke(node).toString());
-                break;
-
-            case 4:
-                Method getMainPressure = node.getClass().getDeclaredMethod("getMainPressure");
-                cell.addAttribute("干线压力", getMainPressure.invoke(node).toString());
-                Method getCalorificValue = node.getClass().getDeclaredMethod("getCalorificValue");
-                cell.addAttribute("天然气热值", getCalorificValue.invoke(node).toString());
-                Method getEngineEfficiency = node.getClass().getDeclaredMethod("getEngineEfficiency");
-                cell.addAttribute("原动机效率", getEngineEfficiency.invoke(node).toString());
-                Method getCompressorEfficiency = node.getClass().getDeclaredMethod("getCompressorEfficiency");
-                cell.addAttribute("压缩机效率", getCompressorEfficiency.invoke(node).toString());
-                break;
-
-            case 5:
-                Method getInletPressure = node.getClass().getDeclaredMethod("getInletPressure");
-                cell.addAttribute("进场压力", getInletPressure.invoke(node).toString());
-                Method getOutletPressure = node.getClass().getDeclaredMethod("getOutletPressure");
-                cell.addAttribute("出场压力", getOutletPressure.invoke(node).toString());
-                Method getProduction = node.getClass().getDeclaredMethod("getProduction");
-                cell.addAttribute("产率", getProduction.invoke(node).toString());
-                break;
-
-        }
+        cell = fillCell(base, cell);
 
         cell.addAttribute("id", String.valueOf(maxId));
 
-        Element element = getElementById(node.getElementId());
+        Element element = getElementById(base.getElementId());
         org.dom4j.Element mxcell = cell.addElement("mxCell");
         String style = "shape=image;image=http://localhost:8081/Elements/" +
                 URLEncoder.encode(element.getName(),"UTF-8") + ".svg;verticalLabelPosition=bottom;verticalAlign=top";
@@ -316,13 +220,13 @@ public class XMLUtil {
 
         double[] size = getSizeFromSVG(getPathRoot() + element.getPath());
         org.dom4j.Element mxgeo = mxcell.addElement("mxGeometry");
-        mxgeo.addAttribute("x",node.getX().toString());
-        mxgeo.addAttribute("y",node.getY().toString());
+        mxgeo.addAttribute("x",base.getX().toString());
+        mxgeo.addAttribute("y",base.getY().toString());
         mxgeo.addAttribute("width", String.valueOf(size[0]/2));
         mxgeo.addAttribute("height", String.valueOf(size[1]/2));
         mxgeo.addAttribute("as","geometry");
 
-        List<Connection> connections = getConnectionListByEid(node.getElementId());
+        List<Connection> connections = getConnectionListByEid(base.getElementId());
         org.dom4j.Element array = mxcell.addElement("Array");
         for(Connection connection : connections) {
             org.dom4j.Element object = array.addElement("Object");
@@ -336,7 +240,60 @@ public class XMLUtil {
         document.write(out);
         out.close();
 
-        return node;
+        return base;
+    }
+
+    public <T extends Base> org.dom4j.Element fillCell(T base, org.dom4j.Element cell)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        switch (base.getElementId()) {
+            case 1:
+                Method getPressure = base.getClass().getDeclaredMethod("getPressure");
+                cell.addAttribute("压力", getPressure.invoke(base).toString());
+                Method getLoads = base.getClass().getDeclaredMethod("getLoads");
+                cell.addAttribute("载荷", getLoads.invoke(base).toString());
+                Method isPressureState = base.getClass().getDeclaredMethod("isPressureState");
+                cell.addAttribute("压力已知", String.valueOf(isPressureState.invoke(base)));
+                Method isLoadState = base.getClass().getDeclaredMethod("isLoadState");
+                cell.addAttribute("载荷已知", String.valueOf(isLoadState.invoke(base)));
+                break;
+
+            case 2:
+                Method getFlowId = base.getClass().getDeclaredMethod("getFlowId");
+                cell.addAttribute("流ID", getFlowId.invoke(base).toString());
+                break;
+
+            case 3:
+                Method getExpandRate = base.getClass().getDeclaredMethod("getExpandRate");
+                cell.addAttribute("膨胀比", getExpandRate.invoke(base).toString());
+                Method getCompressRate = base.getClass().getDeclaredMethod("getCompressRate");
+                cell.addAttribute("压缩比", getCompressRate.invoke(base).toString());
+                Method getEjectorRate = base.getClass().getDeclaredMethod("getEjectorRate");
+                cell.addAttribute("引射率", getEjectorRate.invoke(base).toString());
+                Method getEfficiency = base.getClass().getDeclaredMethod("getEfficiency");
+                cell.addAttribute("等熵效率", getEfficiency.invoke(base).toString());
+                break;
+
+            case 4:
+                Method getMainPressure = base.getClass().getDeclaredMethod("getMainPressure");
+                cell.addAttribute("干线压力", getMainPressure.invoke(base).toString());
+                Method getCalorificValue = base.getClass().getDeclaredMethod("getCalorificValue");
+                cell.addAttribute("天然气热值", getCalorificValue.invoke(base).toString());
+                Method getEngineEfficiency = base.getClass().getDeclaredMethod("getEngineEfficiency");
+                cell.addAttribute("原动机效率", getEngineEfficiency.invoke(base).toString());
+                Method getCompressorEfficiency = base.getClass().getDeclaredMethod("getCompressorEfficiency");
+                cell.addAttribute("压缩机效率", getCompressorEfficiency.invoke(base).toString());
+                break;
+
+            case 5:
+                Method getInletPressure = base.getClass().getDeclaredMethod("getInletPressure");
+                cell.addAttribute("进场压力", getInletPressure.invoke(base).toString());
+                Method getOutletPressure = base.getClass().getDeclaredMethod("getOutletPressure");
+                cell.addAttribute("出场压力", getOutletPressure.invoke(base).toString());
+                Method getProduction = base.getClass().getDeclaredMethod("getProduction");
+                cell.addAttribute("产率", getProduction.invoke(base).toString());
+                break;
+        }
+        return cell;
     }
 
     // 新增pipe
@@ -381,7 +338,7 @@ public class XMLUtil {
     }
 
     // 删除node
-    public void deleteNode(String url, Node node) throws DocumentException, IOException {
+    public void deleteNode(String url, Base node) throws DocumentException, IOException {
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
         org.dom4j.Element root = (org.dom4j.Element) document.selectSingleNode("/mxGraphModel/root");
@@ -426,10 +383,10 @@ public class XMLUtil {
         return null;
     }
 
-    public Node getNodeByName(String name) {
-        for(Node node : nodeList) {
-            if(node.getName().equals(name)) {
-                return node;
+    public Base getBaseByName(String name) {
+        for(Base base : baseList) {
+            if(base.getName().equals(name)) {
+                return base;
             }
         }
         return null;
@@ -495,7 +452,7 @@ public class XMLUtil {
         return pathRoot.substring(0,pathRoot.length()-1);
     }
 
-    public <T extends Node> T autoFilling(T target, Node source) {
+    public <T extends Base> T autoFilling(T target, Base source) {
         target.setElementName(source.getElementName());
         target.setModelId(source.getModelId());
         target.setElementId(source.getElementId());
