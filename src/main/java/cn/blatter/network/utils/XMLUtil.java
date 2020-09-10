@@ -50,18 +50,18 @@ public class XMLUtil {
                     t1.setLoads(Double.parseDouble(n.valueOf("@载荷")));
                     t1.setPressureState(Boolean.parseBoolean(n.valueOf("@压力已知")));
                     t1.setLoadState(Boolean.parseBoolean(n.valueOf("@载荷已知")));
-                    System.out.println(t1.toString());
+//                    System.out.println(t1.toString());
                     baseList.add(t1);
                     break;
 
-//                case 2:
-//                    Well t2 = new Well();
-//                    t2 = autoFilling(t2, base);
-//                    t2.setFlowId(Integer.parseInt(n.valueOf("@流ID")));
+                case 2:
+                    Well t2 = new Well();
+                    t2 = autoFilling(t2, base);
+                    t2.setFlowId(Integer.parseInt(n.valueOf("@流ID")));
 //                    System.out.println(t2.toString());
-//                    baseList.add(t2);
-//                    break;
-//
+                    baseList.add(t2);
+                    break;
+
 //                case 3:
 //                    Ejector t3 = new Ejector();
 //                    t3 = autoFilling(t3, base);
@@ -69,7 +69,7 @@ public class XMLUtil {
 //                    t3.setCompressRate(Double.parseDouble(n.valueOf("@压缩比")));
 //                    t3.setEjectorRate(Double.parseDouble(n.valueOf("@引射率")));
 //                    t3.setEfficiency(Double.parseDouble(n.valueOf("@等熵效率")));
-//                    System.out.println(t3.toString());
+////                    System.out.println(t3.toString());
 //                    baseList.add(t3);
 //                    break;
 //
@@ -80,7 +80,7 @@ public class XMLUtil {
 //                    t4.setCalorificValue(Double.parseDouble(n.valueOf("@天然气热值")));
 //                    t4.setEngineEfficiency(Double.parseDouble(n.valueOf("@原动机效率")));
 //                    t4.setCompressorEfficiency(Double.parseDouble(n.valueOf("@压缩机效率")));
-//                    System.out.println(t4.toString());
+////                    System.out.println(t4.toString());
 //                    baseList.add(t4);
 //                    break;
 //
@@ -90,7 +90,7 @@ public class XMLUtil {
 //                    t5.setInletPressure(Double.parseDouble(n.valueOf("@进场压力")));
 //                    t5.setOutletPressure(Double.parseDouble(n.valueOf("@出场压力")));
 //                    t5.setProduction(Double.parseDouble(n.valueOf("@产率")));
-//                    System.out.println(t5.toString());
+////                    System.out.println(t5.toString());
 //                    baseList.add(t5);
 //                    break;
             }
@@ -432,7 +432,7 @@ public class XMLUtil {
     }
 
     public double[] getSizeFromSVG(String url) throws DocumentException {
-        System.out.println(url);
+//        System.out.println(url);
         File file = new File(url);
         SAXReader reader = new SAXReader();
         Document document = reader.read(file);

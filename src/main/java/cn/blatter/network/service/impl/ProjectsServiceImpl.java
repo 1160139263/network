@@ -1,10 +1,7 @@
 package cn.blatter.network.service.impl;
 
 import cn.blatter.network.domain.*;
-import cn.blatter.network.mapper.ComponentMapper;
-import cn.blatter.network.mapper.NodeMapper;
-import cn.blatter.network.mapper.PipeMapper;
-import cn.blatter.network.mapper.ProjectsMapper;
+import cn.blatter.network.mapper.*;
 import cn.blatter.network.service.*;
 import cn.blatter.network.utils.XMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +40,9 @@ public class ProjectsServiceImpl implements ProjectsService {
 
 	@Autowired
 	private PipeMapper pipeMapper;
+
+	@Autowired
+	private WellMapper wellMapper;
 
 	static String path = "src/main/resources";
 
@@ -106,7 +106,6 @@ public class ProjectsServiceImpl implements ProjectsService {
 			List<Base> baseList = xmlUtil.generateNodes(path + s, projects.getPid());
 			System.out.println(baseList.toString());
 			for(Base base : baseList) {
-				//TODO:insert base
 				switch (base.getElementId()) {
 					case 1:
 						nodeMapper.addBase((Node)base);
@@ -114,7 +113,8 @@ public class ProjectsServiceImpl implements ProjectsService {
 						break;
 
 					case 2:
-
+						wellMapper.addBase((Well)base);
+						wellMapper.addWell((Well)base);
 						break;
 
 					case 3:
@@ -169,7 +169,29 @@ public class ProjectsServiceImpl implements ProjectsService {
 			List<Base> bases = xmlUtil.generateNodes(path + s, projects.getPid());
 			System.out.println(bases.toString());
 			for(Base base : bases) {
-				//TODO:insert base
+				switch (base.getElementId()) {
+					case 1:
+						nodeMapper.addBase((Node)base);
+						nodeMapper.addNode((Node)base);
+						break;
+
+					case 2:
+						wellMapper.addBase((Well)base);
+						wellMapper.addWell((Well)base);
+						break;
+
+					case 3:
+
+						break;
+
+					case 4:
+
+						break;
+
+					case 5:
+
+						break;
+				}
 			}
 			System.out.println("生成pipes...");
 			List<Pipe> pipes = xmlUtil.generatePipes(path + s, projects.getPid(), bases);
