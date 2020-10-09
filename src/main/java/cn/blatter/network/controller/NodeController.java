@@ -28,7 +28,12 @@ public class NodeController {
 
 	@RequestMapping(value = "/addNode", method = RequestMethod.POST)
 	public ServiceResponse addNode(@RequestBody Node node) {
+		long startTime =  System.currentTimeMillis();
 		nodeService.addNode(node);
+		long endTime =  System.currentTimeMillis();
+		double usedTime = (endTime*1.0-startTime*1.0)/1000;
+
+		log.info("生成普通节点所用时间："+usedTime);
 		return ServiceResponse.createBySuccess();
 	}
 

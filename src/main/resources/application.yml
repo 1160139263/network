@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/network?serverTimezone=UTC&characterEncoding=utf-8
+    url: jdbc:mysql://localhost/network?serverTimezone=UTC&characterEncoding=utf-8
     username: root
-    password: nskeylab2020
+    password: toor!@#123
 #    sql文件
 #    schema: sql/network.sql
 

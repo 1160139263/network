@@ -69,19 +69,27 @@ public class PipeController {
 
 	@PostMapping(value = "/pipes")
 	public ServiceResponse insertPipe(@RequestBody Pipe pipe) {
+		long startTime =  System.currentTimeMillis();
 		Integer result = pipeService.insertPipe(pipe);
 		if (result == 1) {
 			return ServiceResponse.createBySuccess(pipe);
 		}
+		long endTime =  System.currentTimeMillis();
+		double usedTime = (endTime*1.0-startTime*1.0)/1000;
+		log.info("生成管道所用时间(s)："+usedTime);
 		return ServiceResponse.createByError();
 	}
 
 	@PutMapping(value = "/pipes")
 	public ServiceResponse updatePipe(@RequestBody Pipe pipe) {
+		long startTime =  System.currentTimeMillis();
 		Integer result = pipeService.updatePipe(pipe);
 		if (result == 1) {
 			return ServiceResponse.createBySuccess();
 		}
+		long endTime =  System.currentTimeMillis();
+		double usedTime = (endTime*1.0-startTime*1.0)/1000;
+		log.info("生成管道所用时间(s)："+usedTime);
 		return ServiceResponse.createByError();
 	}
 }

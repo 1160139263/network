@@ -12,4 +12,7 @@ import java.util.List;
 @Mapper
 public interface MenuMapper {
 	List<Menu> findAll();
+	List<Menu> findAdmin();
+	List<Menu> findOper();
+	List<Menu> findTour();
 }

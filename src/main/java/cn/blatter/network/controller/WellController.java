@@ -28,7 +28,11 @@ public class WellController {
 
 	@RequestMapping(value = "/addWell", method = RequestMethod.POST)
 	public ServiceResponse addWell(@RequestBody Well well) {
+		long startTime =  System.currentTimeMillis();
 		wellService.addWell(well);
+		long endTime =  System.currentTimeMillis();
+		double usedTime = (endTime*1.0-startTime*1.0)/1000;
+		log.info("生成生产井所用时间："+usedTime);
 		return ServiceResponse.createBySuccess();
 	}
 

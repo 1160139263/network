@@ -28,7 +28,11 @@ public class CompressorController {
 
     @RequestMapping(value = "/addCompressor", method = RequestMethod.POST)
     public ServiceResponse addCompressor(@RequestBody Compressor compressor) {
+        long startTime =  System.currentTimeMillis();
         compressorService.addCompressor(compressor);
+        long endTime =  System.currentTimeMillis();
+        double usedTime = (endTime*1.0-startTime*1.0)/1000;
+        log.info("生成压缩机所用时间："+usedTime);
         return ServiceResponse.createBySuccess();
     }
 

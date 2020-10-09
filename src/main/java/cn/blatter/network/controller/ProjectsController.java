@@ -123,6 +123,10 @@ public class ProjectsController {
 
 	@DeleteMapping(value = "/projects/{id}")
 	public ServiceResponse deleteProject(@PathVariable Integer id) {
+		Projects projects = projectsService.queryOne(id);
+		File file = new File(path + projects.getModel());
+		System.out.println(path + projects.getModel());
+		file.delete();
 		Integer result = projectsService.deleteProject(id);
 		if (result == 1) {
 			return ServiceResponse.createBySuccess();

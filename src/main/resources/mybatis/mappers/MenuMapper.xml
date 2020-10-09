@@ -23,4 +23,28 @@
     on t_menu.id = t_submenu.pid
   </select>
 
+  <select id="findAdmin" resultMap="menuMap">
+    select t_menu.icon, t_menu.id, t_menu.title, t_menu.path, t_submenu.id as sid, t_submenu.title as sTitle, t_submenu.path as sPath, t_submenu.icon as sIcon
+    from t_menu
+    left join t_submenu
+    on t_menu.id = t_submenu.pid
+    where t_menu.id = 400
+  </select>
+
+  <select id="findOper" resultMap="menuMap">
+    select t_menu.icon, t_menu.id, t_menu.title, t_menu.path, t_submenu.id as sid, t_submenu.title as sTitle, t_submenu.path as sPath, t_submenu.icon as sIcon
+    from t_menu
+    left join t_submenu
+    on t_menu.id = t_submenu.pid
+    where t_menu.id = 100 or t_menu.id = 200 or t_menu.id = 300
+  </select>
+
+  <select id="findTour" resultMap="menuMap">
+    select t_menu.icon, t_menu.id, t_menu.title, t_menu.path, t_submenu.id as sid, t_submenu.title as sTitle, t_submenu.path as sPath, t_submenu.icon as sIcon
+    from t_menu
+    left join t_submenu
+    on t_menu.id = t_submenu.pid
+    where t_menu.id = 300
+  </select>
+
 </mapper>

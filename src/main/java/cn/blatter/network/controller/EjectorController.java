@@ -28,7 +28,11 @@ public class EjectorController {
 
     @RequestMapping(value = "/addEjector", method = RequestMethod.POST)
     public ServiceResponse addEjector(@RequestBody Ejector ejector) {
+        long startTime =  System.currentTimeMillis();
         ejectorService.addEjector(ejector);
+        long endTime =  System.currentTimeMillis();
+        double usedTime = (endTime*1.0-startTime*1.0)/1000;
+        log.info("生成引射器所用时间："+usedTime);
         return ServiceResponse.createBySuccess();
     }
 

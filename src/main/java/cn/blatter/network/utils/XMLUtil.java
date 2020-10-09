@@ -232,7 +232,7 @@ public class XMLUtil {
             org.dom4j.Element object = array.addElement("Object");
             object.addAttribute("x",connection.getX().toString());
             object.addAttribute("y",connection.getY().toString());
-            object.addAttribute("perimeter","1");
+            object.addAttribute("perimeter","0");
         }
         array.addAttribute("as","constraints");
 

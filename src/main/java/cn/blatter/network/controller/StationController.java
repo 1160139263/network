@@ -28,7 +28,11 @@ public class StationController {
 
     @RequestMapping(value = "/addStation", method = RequestMethod.POST)
     public ServiceResponse addStation(@RequestBody Station station) {
+        long startTime =  System.currentTimeMillis();
         stationService.addStation(station);
+        long endTime =  System.currentTimeMillis();
+        double usedTime = (endTime*1.0-startTime*1.0)/1000;
+        log.info("生成站场所用时间："+usedTime);
         return ServiceResponse.createBySuccess();
     }
 
