@@ -17,7 +17,7 @@ public interface UserMapper {
 
 	void updateById(User user);
 
-	void insertUser(User user);
+	void insertUser(@Param("uid")Integer uid, @Param("username")String username, @Param("password")String password, @Param("role")Integer role);
 
 	User login(@Param("username") String username, @Param("password") String password);
 }

@@ -28,11 +28,11 @@ public class AttributeController {
         return ServiceResponse.createBySuccess(attributeList);
     }
 
-//    @PostMapping(value = "/setAttribute")
-//    public ServiceResponse setAttribute(@RequestBody Attribute attribute) {
-//        attributeService.setAttribute(attribute.getElement_id(),attribute.getPressure(),attribute.getPressure_state(),attribute.getLoads(),attribute.getLoad_state(),attribute.getElevation());
-//        return ServiceResponse.createBySuccess();
-//    }
+    @PostMapping(value = "/setAttribute")
+    public ServiceResponse setAttribute(@RequestBody Attribute attribute) {
+        attributeService.setAttribute(attribute.getId(),attribute.getAttribute_name(),attribute.getAttribute_value());
+        return ServiceResponse.createBySuccess();
+    }
 //
 //    @PostMapping(value = "/addAttribute")
 //    public ServiceResponse addAttribute(@RequestBody Attribute attribute){
