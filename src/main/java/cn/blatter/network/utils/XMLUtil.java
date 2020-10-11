@@ -211,7 +211,7 @@ public class XMLUtil {
 
         Element element = getElementById(base.getElementId());
         org.dom4j.Element mxcell = cell.addElement("mxCell");
-        String style = "shape=image;image=http://localhost:8081/Elements/" +
+        String style = "shape=image;image=http://localhost:8080/Elements/" +
                 URLEncoder.encode(element.getName(),"UTF-8") + ".svg;verticalLabelPosition=bottom;verticalAlign=top";
         mxcell.addAttribute("style",style);
         mxcell.addAttribute("vertex","1");
