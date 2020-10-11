@@ -59,7 +59,7 @@ public class ElementController {
             br.write(str);
             br.flush();
             br.close();
-            element.setPath("/Elements/" + element.getName() + ".svg");
+            element.setPath("http://localhost:8080/img"+"/Elements/" + element.getName() + ".svg");
         }catch (Exception e) {
             System.out.println(e);
         }

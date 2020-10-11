@@ -20,7 +20,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ServiceResponse login(@RequestBody User user) {
 		log.info(user + "开始登录...");
