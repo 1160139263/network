@@ -3,8 +3,7 @@
 <mapper namespace="cn.blatter.network.mapper.UserMapper">
 
   <select id="findAll" resultType="User">
-    select uid, username, password, role
-    from t_user
+    SELECT * FROM t_user;
   </select>
 
   <select id="login" parameterType="string" resultType="User">
@@ -41,29 +40,8 @@
     where uid = #{uid}
   </update>
 
-  <insert id="insertUser" parameterType="User">
-    insert into t_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="username != null">
-        username,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="role != null">
-        role,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="username != null">
-        #{username},
-      </if>
-      <if test="password != null">
-        #{password},
-      </if>
-      <if test="role != null">
-        #{role},
-      </if>
-    </trim>
-  </insert>
+  <select id="insertUser" resultType="User">
+    insert into t_user values (#{uid},#{username},#{password},#{role});
+  </select>
+
 </mapper>

@@ -2,14 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.blatter.network.mapper.AttributeMapper">
 
-  <select id="findAll" resultType="Attribute">
-    SELECT * FROM t_attribute;
+  <resultMap id="attributeMap" type="Attribute">
+    <id column="id" property="id"/>
+    <result column="element_id" property="element_id"/>
+    <result column="attribute_name" property="attribute_name"/>
+    <result column="attribute_value" property="attribute_value"/>
+    <collection property="elements" ofType="Element">
+      <id column="eid" property="id"/>
+      <result column="ename" property="name"/>
+      <result column="epath" property="path"/>
+    </collection>
+  </resultMap>
+
+  <select id="findAll" resultMap="attributeMap">
+    select t_attribute.id, t_attribute.element_id, t_attribute.attribute_name, t_attribute.attribute_value, t_element.name as ename
+    from t_attribute
+    left join t_element
+    on t_attribute.element_id = t_element.id
   </select>
+
+<!--  <select id="findAll" resultType="Attribute">-->
+<!--    SELECT * FROM t_attribute;-->
+<!--  </select>-->
+
   <select id="findById" resultType="Attribute">
     SELECT * FROM t_attribute where element_id=#{element_id};
   </select>
   <select id="setAttribute" resultType="Attribute">
-    update t_attribute set pressure=#{pressure},pressure_state=#{pressure_state},loads=#{loads},load_state=#{load_state},elevation=#{elevation} where element_id=#{element_id};
+    update t_attribute set attribute_name=#{attribute_name},attribute_value=#{attribute_value} where id=#{id};
   </select>
   <select id="addAttribute" resultType="Attribute">
     insert into t_attribute values (#{element_id},#{pressure},#{pressure_state},#{loads},#{load_state},#{elevation});

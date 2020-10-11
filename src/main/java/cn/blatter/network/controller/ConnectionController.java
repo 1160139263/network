@@ -19,6 +19,7 @@ public class ConnectionController {
     @RequestMapping(value = "/getConnection", method = RequestMethod.GET)
     public ServiceResponse list() {
         List<Connection> connectionList = connectionService.findAll();
+        // log.info("连接点" + connectionList);
         return ServiceResponse.createBySuccess(connectionList);
     }
 

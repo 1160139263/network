@@ -28,7 +28,7 @@
     from t_menu
     left join t_submenu
     on t_menu.id = t_submenu.pid
-    where t_menu.id = 400
+    where t_menu.id = 400 or t_menu.id = 500
   </select>
 
   <select id="findOper" resultMap="menuMap">

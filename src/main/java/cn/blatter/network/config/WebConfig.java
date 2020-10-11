@@ -15,7 +15,7 @@ import java.io.File;
  * @Date 2020/7/22 9:50
  */
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig extends WebMvcConfigurerAdapter  {
 
 	/**
 	 * 1. 访问路径
@@ -28,7 +28,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-				.allowedOrigins("http://localhost:8080", "null")
+//				.allowedOrigins("http://localhost:8080", "null")
+				.allowedOrigins("*", "null")
 				.allowedMethods("GET", "POST", "OPTIONS", "PUT", "DELETE")
 				.allowCredentials(true)
 				.maxAge(3600);
@@ -38,15 +39,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	 * 配置访问静态资源
 	 * @param registry
 	 */
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry){
-		String pathRoot = this.getClass().getResource("").getPath();
-		int index = pathRoot.indexOf("target/");
-		pathRoot = pathRoot.substring(1, index);
-		System.out.println(pathRoot + "Elements/");
-		registry.addResourceHandler("/Elements/**")
-				.addResourceLocations("file:" + pathRoot + "Elements/");
-		super.addResourceHandlers(registry);
-	}
+//	@Override
+//	public void addResourceHandlers(ResourceHandlerRegistry registry){
+//		String pathRoot = this.getClass().getResource("").getPath();
+//		int index = pathRoot.indexOf("target/");
+//		pathRoot = pathRoot.substring(1, index);
+//		System.out.println(pathRoot + "Elements/");
+//		registry.addResourceHandler("/Elements/**")
+//				.addResourceLocations("file:" + pathRoot + "Elements/");
+//		super.addResourceHandlers(registry);
+//	}
 
 }
